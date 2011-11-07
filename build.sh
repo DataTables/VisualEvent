@@ -53,7 +53,8 @@ CSS=$(pwd)/css
 
 echo "Building VisualEvent"
 echo "  Creating media directory ${BUILD}"
-mkdir $BUILD
+
+mkdir -p $BUILD
 
 
 # JAVASCRIPT
