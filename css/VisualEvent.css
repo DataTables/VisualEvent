@@ -1,0 +1,286 @@
+/**
+ * @summary     Visual Event CSS
+ * @file        VisualEvent.css
+ * @author      Allan Jardine (www.sprymedia.co.uk)
+ * @license     GPL v2
+ * @contact     www.sprymedia.co.uk/contact
+ *
+ * @copyright Copyright 2007-2011 Allan Jardine.
+ *
+ * This source file is free software, under the GPL v2 license:
+ *   http://www.gnu.org/licenses/gpl-2.0.html
+ */
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Label
+ */
+
+#Event_Label {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	color: white !important;
+	padding: 5px 10px 5px 5px;
+	font-size: 11px;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	z-index: 55999;
+	background-color: #7C94C0;
+	z-index: 55002;
+}
+
+#Event_Label>span {
+	color: white !important;
+}
+
+#Event_Label span.Event_LabelClose,
+#Event_Label span.Event_LabelHelp {
+	display: inline-block;
+	width: 17px;
+	text-align: center;
+	border: 1px solid #627ba9;
+	background-color: #93a8cf;
+	color: #4b6698;
+	margin-right: 5px;
+	cursor: pointer;
+	*cursor: hand;
+}
+
+#Event_Label span.Event_LabelClose:hover,
+#Event_Label span.Event_LabelHelp:hover {
+	background-color: #aebfdd;
+}
+
+#Event_Label span.Event_LabelHelp {
+	margin-right: 10px;
+}
+
+#Event_Label span.Event_LabelBy {
+	display: inline-block;
+	font-size: 10px;
+	margin-right: 10px;
+}
+
+#Event_Label span.Event_LabelBy a {
+	color: #eee;
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Help
+ */
+
+#Event_Help {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 55001;
+	background-color: #ddd;
+	color: #222;
+	font-size: 14px;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+}
+
+#Event_Help div.Event_HelpInner {
+	width: 800px;
+	margin: 30px auto 0 auto;
+}
+
+#Event_Help h1 {
+	font-size: 18px;
+	border-bottom: 1px solid #ccc;
+	color: #222;
+}
+
+#Event_Help p {
+	margin: 1em 0;
+	color: #222;
+}
+
+#Event_Help table {
+	width: 90%;
+	margin: 0 auto;
+}
+
+#Event_Help p.Event_HelpClose {
+	text-align: center;
+	margin-top: 2em;
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Lightbox
+ */
+
+#Event_Lightbox {
+	position: absolute;
+	display: none;
+	color: #111;
+	width: 660px;
+	z-index: 55003;
+	text-align: left;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	padding: 5px;
+	font-size: 12px;
+	direction : ltr;
+	background-color: #F8F8F8;
+	border: 4px solid #7C94C0;
+	-moz-box-shadow: 3px 3px 5px #111;
+	-webkit-box-shadow: 3px 3px 5px #111;
+	box-shadow: 3px 3px 5px #111;
+}
+
+#Event_Lightbox ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#Event_Lightbox ul li {
+	display: block;
+	width: 90px;
+	padding: 5px;
+	cursor: pointer;
+	*cursor: hand;
+}
+
+#Event_Lightbox ul li.Event_EventSelected {
+	background-color: #eee;
+}
+
+#Event_Lightbox div.Event_NodeRemove {
+	float: right;
+	font-size: 10px;
+	color: #4E6CA3;
+	cursor: pointer;
+	*cursor: hand;
+}
+
+#Event_Lightbox div.Event_NodeRemove:hover {
+	text-decoration: underline;
+}
+
+#Event_Lightbox #Event_Trigger {
+	color: #4E6CA3;
+	cursor: pointer;
+	*cursor: hand;
+}
+
+#Event_Lightbox #Event_Trigger:hover {
+	text-decoration: underline;
+}
+
+#Event_Lightbox div.Event_Nav {
+	float: left;
+	width: 100px;
+}
+
+#Event_Lightbox div.Event_Code {
+	float: left;
+	width: 550px;
+	background-color: #eee;
+	padding: 5px;
+}
+
+#Event_Lightbox div.Event_Code p {
+	padding: 0 0 12px 0;
+	margin: 0;
+}
+
+#Event_Lightbox div.Event_NodeName {
+	padding: 5px;
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Display
+ */
+
+#Event_Display {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 55001;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+#Event_Display div.Event_info {
+	float: left;
+	width: 15px;
+	height: 15px;
+	z-index: 55002;
+	border: transparent 2px solid;
+}
+
+#Event_Display div.Event_bg_blue {
+	background-color: rgba(0, 0, 255, 0.3);
+	border: rgba(0, 0, 255, 0.5) 2px solid;
+}
+
+#Event_Display div.Event_bg_blue:hover {
+	border: rgba(0, 0, 255, 1) 2px solid;
+}
+
+#Event_Display div.Event_bg_red {
+	background-color: rgba(255, 0, 0, 0.3);
+	border: rgba(255, 0, 0, 0.5) 2px solid;
+}
+
+#Event_Display div.Event_bg_red:hover {
+	border: rgba(255, 0, 0, 1) 2px solid;
+}
+
+#Event_Display div.Event_bg_yellow {
+	background-color: rgba(0, 255, 0, 0.3);
+	border: rgba(0, 255, 0, 0.5) 2px solid;
+}
+
+#Event_Display div.Event_bg_yellow:hover {
+	border: rgba(0, 255, 0, 1) 2px solid;
+}
+
+#Event_Display div.Event_bg_green {
+	background-color: rgba(0, 167, 0, 0.3);
+	border: rgba(0, 167, 0, 0.5) 2px solid;
+}
+
+#Event_Display div.Event_bg_green:hover {
+	border: rgba(0, 167, 0, 1) 2px solid;
+}
+
+#Event_Display div.Event_bg_purple {
+	background-color: rgba(167, 0, 145, 0.3);
+	border: rgba(167, 0, 145, 0.5) 2px solid;
+}
+
+#Event_Display div.Event_bg_purple:hover {
+	border: rgba(167, 0, 145, 1) 2px solid;
+}
+
+#Event_Display div.Event_bg_orange {
+	background-color: rgba(201, 145, 35, 0.3);
+	border: rgba(201, 145, 35, 0.5) 2px solid;
+}
+
+#Event_Display div.Event_bg_orange:hover {
+	border: rgba(201, 145, 35, 1) 2px solid;
+}
+
+#Event_Display div.Event_bg_black {
+	background-color: rgba(190, 190, 190, 0.3);
+	border: rgba(190, 190, 190, 0.5) 2px solid;
+}
+
+#Event_Display div.Event_bg_black:hover {
+	border: rgba(190, 190, 190, 1) 2px solid;
+}

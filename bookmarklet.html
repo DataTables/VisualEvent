@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Visual Event javascript booklet</title>
+		
+		<style type="text/css" media="screen">
+			body {
+				font: 80%/1.45em Arial, Verdana, Helvetica, sans-serif;
+				margin: 0;
+				padding: 0;
+			}
+			
+			#wrapper {
+				width: 800px;
+				margin: 0 auto;
+			}
+			
+			textarea {
+				width: 100%;
+				height: 300px
+			}
+		</style>
+		
+		<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready( function () {
+				$('#js').keyup( makeBookmarklet );
+				makeBookmarklet();
+			} );
+			
+			function makeBookmarklet () {
+				var s = $('#js').val();
+				var a = s.split('\n');
+				for ( var i=0, iLen=a.length ; i<iLen ; i++ ) {
+					a[i] = $.trim(a[i]);
+					if ( a[i].indexOf('//') === 0 ) {
+						a[i] = "";
+					}
+				}
+				s = a.join('');
+				s.replace( ' ', '%20' );
+				
+				document.getElementById('bookmarklet').href = "javascript:"+s;
+			}
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<h1>Visual Event bookmarklet generator</h1>
+			<p>
+				Visual Event is a bookmarklet which will visually show you which elements on an HTML 
+				page have Javascript events assigned to them. This page can be used to generate the
+				bookmarklet that you want to use for testing or deployment of Visual Event.
+			</p>
+			<p>
+				To generate a bookmarklet, modify the Javascript in the textarea below, the 
+				bookmarklet link will be updated as you type (typically you will only need to
+				change the URL to load Visual Event) and then click and drag the
+				<i>Visual Event</i> link to your bookmarklet bar.
+			</p>
+			
+			<p style="text-align:center">
+				<a id="bookmarklet" href="">Visual Event</a>
+			</p>
+        	
+			<textarea id="js">(function() {
+	//var url = 'http://www.sprymedia.co.uk/VisualEvent/VisualEvent_Loader.js';
+	var url = 'http://localhost/VisualEvent/builds/VisualEvent_Loader.js';
+	
+	if( typeof VisualEvent!='undefined' ) {
+		if ( VisualEvent.instance !== null ) {
+			VisualEvent.close();
+		}
+		else {
+			new VisualEvent();
+		}
+	}
+	else {
+		var n=document.createElement('script');
+		n.setAttribute('language','JavaScript');
+		n.setAttribute('src',url+'?rand='+new Date().getTime());
+		document.body.appendChild(n);
+	}
+})();</textarea>
+		</div>
+	</body>
+</html>
+
+
+
