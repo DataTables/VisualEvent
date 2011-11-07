@@ -14,7 +14,7 @@ In addition to being useful for debugging your own code, Visual Event can be use
 
 As Visual Event is a bookmarklet, installing and running it on any web-page is extremely simple:
 
-* Drag the Visual Event link on the right to your bookmark bar: [Visual Event](javascript:(function()%20{var%20url%20=%20'http://www.sprymedia.co.uk/VisualEvent/VisualEvent_Loader.js';if(%20typeof%20VisualEvent!='undefined'%20)%20{if%20(%20VisualEvent.instance%20!==%20null%20)%20{VisualEvent.close();}else%20{new%20VisualEvent();}}else%20{var%20n=document.createElement('script');n.setAttribute('language','JavaScript');n.setAttribute('src',url+'?rand='+new%20Date().getTime());document.body.appendChild(n);}})();)
+* Drag the Visual Event link on the right to your bookmark bar: [Visual Event](javascript:\(function\(\)%20{var%20url%20=%20'http://www.sprymedia.co.uk/VisualEvent/VisualEvent_Loader.js';if\(%20typeof%20VisualEvent!='undefined'%20\)%20{if%20\(%20VisualEvent.instance%20!==%20null%20\)%20{VisualEvent.close\(\);}else%20{new%20VisualEvent\(\);}}else%20{var%20n=document.createElement\('script'\);n.setAttribute\('language','JavaScript'\);n.setAttribute\('src',url+'?rand='+new%20Date\(\).getTime\(\));document.body.appendChild(n);}})();)
 * Load a web-page which uses one of the supported Javascript libraries
 * Click "Visual Event" in your bookmark bar
 * View the event handlers which are attached to the document elements.
@@ -47,17 +47,17 @@ The VisualEvent class has a static array called `VisualEvent.parsers` which is a
 ```javascript
 [
 	{
-		"node": {element},        // The DOM element that has attached events
-		"listeners": [            // Array of attached events
+		"node": {element},            // The DOM element that has attached events
+		"listeners": [                // Array of attached events
 			{
-		    "type": {string},     // The event type - click, change, keyup etc
-		    "func": {string},     // The code that will handle the event, from Function.toString()
-        "removed": {boolean}, // If the event has been removed or not (typically will be false, but used if the library doesn't remove the event from its cache)
-        "source": {string}    // Library name and version that attached the event (e.g. "jQuery 1.7")
-		  },
+				"type": {string},     // The event type - click, change, keyup etc
+				"func": {string},     // The code that will handle the event, from Function.toString()
+				"removed": {boolean}, // If the event has been removed or not (typically will be false, but used if the library doesn't remove the event from its cache)
+				"source": {string}    // Library name and version that attached the event (e.g. "jQuery 1.7")
+			},
 			...
-    ]
-  },
+		]
+	},
 	...
 ]
 ```
@@ -90,7 +90,7 @@ The file `bookmarklet.html` is provided to build your own bookmarklet loader nic
 
 ## About the author
 
-Allan Jardine is a freelance web UI developer, broadcasting from Scotland and just loves creating usable and useful developer tools. If you'd like to work with Allan on a project, please do [get in touch](http://sprymedia.co.uk)!
+Allan Jardine is a freelance web UI developer, broadcasting from Scotland and just loves creating usable and useful developer tools. If you'd like to work with Allan on a project, please do [get in touch](http://sprymedia.co.uk/contact)!
 
 
 
