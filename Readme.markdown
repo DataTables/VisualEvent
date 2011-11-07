@@ -14,7 +14,7 @@ In addition to being useful for debugging your own code, Visual Event can be use
 
 As Visual Event is a bookmarklet, installing and running it on any web-page is extremely simple:
 
-* Drag the Visual Event link on the right to your bookmark bar: [Visual Event](javascript:\(function\(\)%20{var%20url%20=%20'http://www.sprymedia.co.uk/VisualEvent/VisualEvent_Loader.js';if\(%20typeof%20VisualEvent!='undefined'%20\)%20{if%20\(%20VisualEvent.instance%20!==%20null%20\)%20{VisualEvent.close\(\);}else%20{new%20VisualEvent\(\);}}else%20{var%20n=document.createElement\('script'\);n.setAttribute\('language','JavaScript'\);n.setAttribute\('src',url+'?rand='+new%20Date\(\).getTime\(\));document.body.appendChild(n);}})();)
+* Drag the Visual Event link on the right to your bookmark bar: [Visual Event](javascript:\(function\(\)%20{var%20url%20=%20'http://www.sprymedia.co.uk/VisualEvent/VisualEvent_Loader.js';if\(%20typeof%20VisualEvent!='undefined'%20\)%20{if%20\(%20VisualEvent.instance%20!==%20null%20\)%20{VisualEvent.close\(\);}else%20{new%20VisualEvent\(\);}}else%20{var%20n=document.createElement\('script'\);n.setAttribute\('language','JavaScript'\);n.setAttribute\('src',url+'?rand='+new%20Date\(\).getTime\(\)\);document.body.appendChild(n);}}\)\(\);)
 * Load a web-page which uses one of the supported Javascript libraries
 * Click "Visual Event" in your bookmark bar
 * View the event handlers which are attached to the document elements.
