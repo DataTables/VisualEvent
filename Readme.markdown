@@ -14,7 +14,7 @@ In addition to being useful for debugging your own code, Visual Event can be use
 
 As Visual Event is a bookmarklet, installing and running it on any web-page is extremely simple:
 
-* Open the [Visual Event bookmarklet page](http://sprymedia.co.uk) and drag the "Visual Event" link to your bookmark bar
+* Open the [Visual Event bookmarklet page](http://sprymedia.co.uk/VisualEvent) and drag the "Visual Event" link to your bookmark bar
 * Load a web-page which uses one of the supported Javascript libraries
 * Click "Visual Event" in your bookmark bar
 * View the event handlers which are attached to the document elements.
