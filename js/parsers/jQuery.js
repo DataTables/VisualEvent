@@ -74,9 +74,9 @@ function jQueryGeneric (elements, cache)
 						else {
 							func = oEvents[j].toString();
 						}
-							
+						
 						/* We use jQuery for the Visual Event events... don't really want to display them */
-						if ( !func.match(/VisualEvent/) && !func.match(/EventLoader/) && func != "0" )
+						if ( oEvents[j] && oEvents[j].namespace != "VisualEvent" && func != "0" )
 						{
 							elements[ elements.length-1 ].listeners.push( {
 								"type": type,

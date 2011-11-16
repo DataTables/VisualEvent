@@ -38,7 +38,7 @@ if [ -z "$1" ]; then
 fi
 
 # DEFAULTS
-UGLIFYJS=/Users/allan/.npm/uglify-js/1.1.1/package/bin/uglifyjs
+UGLIFYJS=/Users/allan/node_modules/uglify-js/bin/uglifyjs
 JSDOC3=/usr/local/jsdoc3/jsdoc.jar
 
 BUILD_DIR=VisualEvent-$(date +%s)
