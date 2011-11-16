@@ -288,7 +288,7 @@ VisualEvent.prototype = {
 			that._lightboxHide();
 		} );
 		
-		$('div.Event_NodeRemove', this.dom.lightbox).bind('click.Event_NodeRemove', function (e) {
+		$('div.Event_NodeRemove', this.dom.lightbox).bind('click.VisualEvent', function (e) {
 			that.dom.activeEventNode.style.display = "none";
 			that.dom.lightbox.style.display = "none";
 		} );
