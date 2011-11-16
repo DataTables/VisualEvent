@@ -200,7 +200,6 @@ window.VisualEvent = function ()
 						'<a href="https://github.com/SpryMedia/VisualEvent">Github</a>!</p>'+
 					'<p class="Event_HelpClose">Click anywhere to close this help box.</p>'+
 				'</div>'+
-			'</div>'+
 			'</div>')[0],
 			
 		/**
