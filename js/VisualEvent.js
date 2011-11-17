@@ -173,7 +173,7 @@ window.VisualEvent = function ()
 					'<p>Visual Event will show which elements on any given page have Javascript events attached '+
 						'to them, what those events are and the code associated with the events. In Webkit '+
 						'browsers and Opera, Visual Event will also indicate where the code in question was '+
-						'defined.<p>'+
+						'defined.</p>'+
 					'<p>Note that Visual Event is only able to show events for Javascript libraries for which '+
 						'it has a parser. This is currently: DOM0 events, Glow, jQuery, MooTools, Prototype and YUI2.</p>'+
 					'<p>Commands:</p>'+
