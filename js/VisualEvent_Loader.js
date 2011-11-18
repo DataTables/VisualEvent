@@ -159,6 +159,7 @@ VisualEvent_Loader.prototype = {
 			n = document.createElement( 'script' );
 			n.setAttribute( 'language', 'JavaScript' );
 			n.setAttribute( 'src', file );
+			n.setAttribute( 'charset', 'utf8' );
 			document.body.appendChild( n );
 		}
 	},
