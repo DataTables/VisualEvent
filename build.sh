@@ -39,7 +39,7 @@ fi
 
 # DEFAULTS
 UGLIFYJS=/Users/allan/node_modules/uglify-js/bin/uglifyjs
-JSDOC3=/usr/local/jsdoc3/jsdoc.jar
+JSDOC3=/usr/local/jsdoc/jsdoc
 
 BUILD_DIR=VisualEvent-$(date +%s)
 BUILD_BASE=$(pwd)/builds
@@ -90,7 +90,7 @@ cat $CSS/VisualEvent.css $CSS/shCore.css > $BUILD_CSS/VisualEvent.css
 # Docs
 if [ -e $JSDOC3 -a "$DEBUG" != "debug" ]; then
 	echo "  Documentation"
-	java -jar /usr/local/jsdoc3/jsdoc.jar -d $BUILD_DOCS -t JSDoc-DataTables $JS/VisualEvent.js $JS/VisualEvent_Loader.js
+	$JSDOC3 -d $BUILD_DOCS -t JSDoc-DataTables $JS/VisualEvent.js $JS/VisualEvent_Loader.js
 fi
 
 echo "Done :-)"

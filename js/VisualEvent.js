@@ -194,6 +194,10 @@ window.VisualEvent = function ()
 							'<td>Key: h</td>'+
 							'<td>Show / hide this help box</td>'+
 						'</tr>'+
+						'<tr>'+
+							'<td>Key: r</td>'+
+							'<td>Reload and display events on page</td>'+
+						'</tr>'+
 					'</table>'+
 					'<p>Visual Event is open source software (GPLv2). If you would like to contribute an '+
 						'enhancement, please fork the project on '+
@@ -251,7 +255,11 @@ VisualEvent.prototype = {
 		$(this.dom.display).remove();
 		$(this.dom.label).remove();
 		$(this.dom.help).remove();
-		
+
+		this.s.elements.splice(0, this.s.elements.length);
+		this.s.nonDomEvents = 0;
+		this.s.scripts.splice(0, this.s.scripts.length);
+			
 		this._construct();
 	},
 	
@@ -308,6 +316,9 @@ VisualEvent.prototype = {
 			else if ( e.which === 32 ) { // space
 				$('div.EventLabel').css('display', 'block');
 				e.preventDefault();
+			}
+			else if ( e.which === 82 ) { // r
+				that.reInit();
 			}
 		} );
 		
@@ -620,7 +631,9 @@ VisualEvent.prototype = {
 					node.dispatchEvent(evt);
 					
 					// Might cause stuff to move around by the activation of the event, so re-init
-					that.reInit();
+					setTimeout( function () {
+						that.reInit.call(that);
+					}, 200 );
 				}
 			);
 		};
