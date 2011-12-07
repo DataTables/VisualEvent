@@ -403,7 +403,7 @@ VisualEvent.prototype = {
 		
 		var that = this;
 		var url = loadQueue.shift();
-		
+
 		$.ajax( {
 			"dataType": 'text', 
 			"type": "GET", 
@@ -413,6 +413,9 @@ VisualEvent.prototype = {
 					"src": url,
 					"code": text
 				} );
+				that._scriptLoadQueue( loadQueue );
+			},
+			"error": function () {
 				that._scriptLoadQueue( loadQueue );
 			}
 		} );
@@ -453,7 +456,7 @@ VisualEvent.prototype = {
 		// so we'll never be able to find the original. Should we just return an empty string
 		// for Firefox?
 		
-		if ( srcFiles.length === "" ) {
+		if ( srcFiles.length === 0 ) {
 			origin = "Function definition could not be found automatically<br/>";
 		} else if ( srcFiles.length === 1 ) {
 			origin = "Function defined on line "+srcFiles[0].line+
