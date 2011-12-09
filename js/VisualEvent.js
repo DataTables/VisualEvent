@@ -258,7 +258,6 @@ VisualEvent.prototype = {
 
 		this.s.elements.splice(0, this.s.elements.length);
 		this.s.nonDomEvents = 0;
-		this.s.scripts.splice(0, this.s.scripts.length);
 			
 		this._construct();
 	},
@@ -369,6 +368,11 @@ VisualEvent.prototype = {
 	 */
 	"_scriptsLoad": function ()
 	{
+		// Don't load scripts again if they are already loaded
+		if ( this.s.scripts.length > 0 ) {
+			return;
+		}
+
 		var loadQueue = [];
 		var scripts = document.getElementsByTagName('script');
 		for ( var i=0, iLen=scripts.length ; i<iLen ; i++ ) {
