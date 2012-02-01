@@ -232,6 +232,8 @@ VisualEvent.prototype = {
 	{
 		// Remove all events that we've added
 		$('*').unbind('.VisualEvent');
+		$(document).unbind( 'keydown.VisualEvent' );
+
 		$(this.dom.display).remove();
 		$(this.dom.label).remove();
 		$(this.dom.help).remove();
@@ -251,6 +253,8 @@ VisualEvent.prototype = {
 	"reInit": function ()
 	{
 		$('*').unbind('.VisualEvent');
+		$(document).unbind( 'keydown.VisualEvent' );
+		
 		$(this.dom.display).empty();
 		$(this.dom.display).remove();
 		$(this.dom.label).remove();
