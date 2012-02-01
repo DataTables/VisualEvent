@@ -65,6 +65,17 @@
 	color: #eee;
 }
 
+table.Event_LabelColorInfo td {
+	text-align: center;
+	font-size: 12px;
+}
+
+div.Event_LabelColour {
+	margin: 0 auto;
+	height: 20px;
+	width: 20px;
+}
+
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -222,6 +233,7 @@
 	border: transparent 2px solid;
 }
 
+#Event_Help div.Event_bg_blue,
 #Event_Display div.Event_bg_blue {
 	background-color: rgba(0, 0, 255, 0.3);
 	border: rgba(0, 0, 255, 0.5) 2px solid;
@@ -231,6 +243,7 @@
 	border: rgba(0, 0, 255, 1) 2px solid;
 }
 
+#Event_Help div.Event_bg_red,
 #Event_Display div.Event_bg_red {
 	background-color: rgba(255, 0, 0, 0.3);
 	border: rgba(255, 0, 0, 0.5) 2px solid;
@@ -240,15 +253,17 @@
 	border: rgba(255, 0, 0, 1) 2px solid;
 }
 
+#Event_Help div.Event_bg_yellow,
 #Event_Display div.Event_bg_yellow {
-	background-color: rgba(0, 255, 0, 0.3);
-	border: rgba(0, 255, 0, 0.5) 2px solid;
+	background-color: rgba(255, 204, 51, 0.3);
+	border: rgba(245, 184, 0, 0.5) 2px solid;
 }
 
 #Event_Display div.Event_bg_yellow:hover {
-	border: rgba(0, 255, 0, 1) 2px solid;
+	border: rgba(255, 204, 51, 1) 2px solid;
 }
 
+#Event_Help div.Event_bg_green,
 #Event_Display div.Event_bg_green {
 	background-color: rgba(0, 167, 0, 0.3);
 	border: rgba(0, 167, 0, 0.5) 2px solid;
@@ -258,6 +273,7 @@
 	border: rgba(0, 167, 0, 1) 2px solid;
 }
 
+#Event_Help div.Event_bg_purple,
 #Event_Display div.Event_bg_purple {
 	background-color: rgba(167, 0, 145, 0.3);
 	border: rgba(167, 0, 145, 0.5) 2px solid;
@@ -267,6 +283,7 @@
 	border: rgba(167, 0, 145, 1) 2px solid;
 }
 
+#Event_Help div.Event_bg_orange,
 #Event_Display div.Event_bg_orange {
 	background-color: rgba(201, 145, 35, 0.3);
 	border: rgba(201, 145, 35, 0.5) 2px solid;
@@ -276,6 +293,7 @@
 	border: rgba(201, 145, 35, 1) 2px solid;
 }
 
+#Event_Help div.Event_bg_black,
 #Event_Display div.Event_bg_black {
 	background-color: rgba(190, 190, 190, 0.3);
 	border: rgba(190, 190, 190, 0.5) 2px solid;

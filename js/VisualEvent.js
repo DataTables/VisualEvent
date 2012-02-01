@@ -199,6 +199,28 @@ window.VisualEvent = function ()
 							'<td>Reload and display events on page</td>'+
 						'</tr>'+
 					'</table>'+
+					'<p>The colour of the elements that have been detected to have an event reflect the type of '+
+					'events that are attached to the element:</p>'+
+					'<table cellpadding="0" cellspacing="0" border="0" class="Event_LabelColorInfo">'+
+						'<tr>'+
+							'<td width="15%"><div class="EventLabel Event_LabelColour Event_bg_blue"></div></td>'+
+							'<td width="14%"><div class="EventLabel Event_LabelColour Event_bg_red"></div></td>'+
+							'<td width="14%"><div class="EventLabel Event_LabelColour Event_bg_yellow"></div></td>'+
+							'<td width="14%"><div class="EventLabel Event_LabelColour Event_bg_green"></div></td>'+
+							'<td width="14%"><div class="EventLabel Event_LabelColour Event_bg_purple"></div></td>'+
+							'<td width="14%"><div class="EventLabel Event_LabelColour Event_bg_orange"></div></td>'+
+							'<td width="15%"><div class="EventLabel Event_LabelColour Event_bg_black"></div></td>'+
+						'</tr>'+
+						'<tr>'+
+							'<td>Mouse event</td>'+
+							'<td>UI event</td>'+
+							'<td>HTML event</td>'+
+							'<td>Mouse + HTML</td>'+
+							'<td>Mouse + UI</td>'+
+							'<td>HTML + UI</td>'+
+							'<td>Mouse + HTML + UI</td>'+
+						'</tr>'+
+					'</table>'+
 					'<p>Visual Event is open source software (GPLv2). If you would like to contribute an '+
 						'enhancement, please fork the project on '+
 						'<a href="https://github.com/SpryMedia/VisualEvent">Github</a>!</p>'+
@@ -206,6 +228,7 @@ window.VisualEvent = function ()
 				'</div>'+
 			'</div>')[0],
 			
+
 		/**
 		 * Reference to the visual event node indicator - so we have a reference to what node we are
 		 * showing the lightbox information about
