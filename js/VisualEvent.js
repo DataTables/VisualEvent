@@ -780,7 +780,7 @@ VisualEvent.prototype = {
 		
 		/* Inject the function string here incase it includes a '</textarea>' string */
 		$('pre', this.dom.lightbox).html( 
-			func.replace('&', '&amp;').replace('<', '&lt;').replace('<', '&gt;')
+			func.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 		);
 		
 		VisualEventSyntaxHighlighter.highlight( null, document.getElementById('Event_code') );
