@@ -254,7 +254,7 @@ VisualEvent.prototype = {
 	{
 		$('*').unbind('.VisualEvent');
 		$(document).unbind( 'keydown.VisualEvent' );
-		
+
 		$(this.dom.display).empty();
 		$(this.dom.display).remove();
 		$(this.dom.label).remove();
