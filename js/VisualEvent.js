@@ -258,6 +258,7 @@ VisualEvent.prototype = {
 		$(document).unbind( 'keydown.VisualEvent' );
 
 		$(this.dom.display).remove();
+		$(this.dom.lightbox).remove();
 		$(this.dom.label).remove();
 		$(this.dom.help).remove();
 		
@@ -280,6 +281,7 @@ VisualEvent.prototype = {
 
 		$(this.dom.display).empty();
 		$(this.dom.display).remove();
+		$(this.dom.lightbox).remove();
 		$(this.dom.label).remove();
 		$(this.dom.help).remove();
 
