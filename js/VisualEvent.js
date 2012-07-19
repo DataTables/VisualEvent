@@ -822,9 +822,9 @@ VisualEvent.prototype = {
 	"_renderLabel": function ()
 	{
 		var that = this,
-			events = 0;
+			events = 0, i, iLen;
 		
-		for ( i=0, iLen=this.s.elements.length ; i<iLen ; i++ ) {
+		for (i=0, iLen=this.s.elements.length ; i<iLen ; i++ ) {
 			events += this.s.elements[i].listeners.length;
 		}
 		
@@ -943,7 +943,7 @@ VisualEvent.prototype = {
 	"_merge": function ( main )
 	{
 		var ret = [];
-		var i, iLen, j, jLen;
+		var found, i, iLen, j, jLen;
 		
 		for ( i=0, iLen=main.length ; i<iLen ; i++ ) {
 			found = false;
