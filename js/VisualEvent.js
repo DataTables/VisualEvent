@@ -572,6 +572,9 @@ VisualEvent.prototype = {
 		
 		// Element is hidden
 		if ( $(eventNode.node).filter(':visible').length === 0 ) {
+			if ( window.console && window.console.warn ) {
+				console.warn("Event on invisible element", eventNode.node, eventNode);
+			}
 			this.s.nonDomEvents += 1;
 			return;
 		}
