@@ -583,7 +583,6 @@ VisualEvent.prototype = {
 		pos = $(eventNode.node).offset();
 
 		label = document.createElement( 'div' );
-		label.style.position = "absolute";
 		label.style.top = pos.top+"px";
 		label.style.left = pos.left+"px";
 		label.className = 'EventLabel Event_bg_'+this._getColorFromTypes( eventNode.listeners );
