@@ -16,37 +16,37 @@
 (function(window, document, $){
 
 
-/** 
+/**
  * Visual Event will show, visually, which DOM elements on a web-page have events attached to
- * them, information about those events and the code accossiated with each handler for the 
+ * them, information about those events and the code accossiated with each handler for the
  * event. It does this by parsing through the cache of Javascript libraries (as there is no DOM
  * method to get the information required), thus a major part of Visual Event are the library
  * parsers. A result of this is that universal display of events is not possible - there must
  * be a parser available.
- * 
+ *
  * Visual Event's display is broken into four major areas:
  *   - Label - The information toolbar at the bottom of the window (fixed) showing Visual Event
  * controls (close and help), the name of the program and information about the events that have
  * been found on the page.
- * 
+ *
  *   - Help - The help view is a completely blocking layer which shows information about Visual
  * Event and how to use it. A single click will remove the help layer and restore the standard
  * Visual Event view.
- * 
- *   - Display - A layer which provides a background to Visual Event (thus when Visual Event is 
+ *
+ *   - Display - A layer which provides a background to Visual Event (thus when Visual Event is
  * active is it blocking to the web-page below it) and acts as a container for the boxes (DIVs)
  * which serve as a visual indicator that there is an event attached to the element below it
  * (sized to match the element with the event attached).
- * 
+ *
  *   - Lightbox - The event information and code display of attached events.
- * 
- * Note that currently there can only be one instance of Visual Event at a time, due to 
+ *
+ * Note that currently there can only be one instance of Visual Event at a time, due to
  * practicality (no point in showing the same thing twice, at the same time) and the use of
  * element IDs in the script.
- * 
+ *
  *  @class VisualEvent
  *  @constructor
- * 
+ *
  *  @example
  * 		new VisualEvent();
 */
@@ -57,21 +57,21 @@ window.VisualEvent = function ()
 		alert( "VisualEvent warning: Must be initialised with the 'new' keyword." );
 		return;
 	}
-	
+
 	// Only one instance of VisualEvent at a time, in the current running mode. So if there is a
 	// current instance, shut it down first
 	if ( VisualEvent.instance !== null ) {
 		VisualEvent.instance.close();
 	}
 	VisualEvent.instance = this;
-	
-	
+
+
 	/**
 	 * Settings object containing customisable information for the class instance
 	 * @namespace
 	 */
 	this.s = {
-		/** 
+		/**
 		 * Array of objects containing information about the nodes which have been found to have
 		 * events attached to them. Each object contains the following parameters:
 		 *   {element} node The DOM element in question
@@ -84,16 +84,16 @@ window.VisualEvent = function ()
 		 *  @default  null
 		 */
 		"elements": null,
-		
-		/** 
+
+		/**
 		 * setTimeout reference for delayed hiding of the lightbox layer
 		 *  @type     int
 		 *  @default  null
 		 *  @private
 		 */
 		"mouseTimer": null,
-		
-		/** 
+
+		/**
 		 * Counter for the number of events which have been found from a JS library's cache, but
 		 * are not currently available in the document's DOM
 		 *  @type     int
@@ -101,8 +101,8 @@ window.VisualEvent = function ()
 		 *  @private
 		 */
 		"nonDomEvents": 0,
-		
-		/** 
+
+		/**
 		 * Array of objects holding information about each SCRIPT tag that is found in the DOM. Each
 		 * object contains the parameters:
 		 *   {string} src The URL of the script source (or inline string if no src attribute)
@@ -113,7 +113,7 @@ window.VisualEvent = function ()
 		 */
 		"scripts": []
 	};
-	
+
 	/**
 	 * DOM elements used by the class instance
 	 * @namespace
@@ -134,14 +134,14 @@ window.VisualEvent = function ()
 				'<span class="Event_LabelNodes"></span> nodes. '+
 				'<span class="Event_LabelNonDom"></span> events were attached to elements not currently in the document.'+
 			'</div>')[0],
-		
+
 		/**
 		 * Display layer - background layer and container for Visual Event visual node indicators
 		 *  @type     element
 		 *  @default  See code
 		 */
 		"display": $('<div id="Event_Display"></div>')[0],
-		
+
 		/**
 		 * Lightbox layer - Template for information display about a given node, and the code for
 		 * a given event handler
@@ -160,7 +160,7 @@ window.VisualEvent = function ()
 				'</div>'+
 				'<div class="Event_Code"></div>'+
 			'</div>')[0],
-			
+
 		/**
 		 * Help layer - information about Visual Event and how to use it
 		 *  @type     element
@@ -227,7 +227,7 @@ window.VisualEvent = function ()
 					'<p class="Event_HelpClose">Click anywhere to close this help box.</p>'+
 				'</div>'+
 			'</div>')[0],
-			
+
 
 		/**
 		 * Reference to the visual event node indicator - so we have a reference to what node we are
@@ -237,7 +237,7 @@ window.VisualEvent = function ()
 		 */
 		"activeEventNode": null
 	};
-	
+
 	this._construct();
 };
 
@@ -246,7 +246,7 @@ VisualEvent.prototype = {
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * API methods
 	 */
-	
+
 	/**
 	 * Shutdown Visual Event and return to the original page
 	 * @param {event} e Event object
@@ -261,15 +261,15 @@ VisualEvent.prototype = {
 		$(this.dom.lightbox).remove();
 		$(this.dom.label).remove();
 		$(this.dom.help).remove();
-		
+
 		if ( typeof VisualEvent_Loader !== 'undefined' && !VisualEvent_Loader.jQueryPreLoaded ) {
 			$.noConflict();
 		}
-		
+
 		VisualEvent.instance = null;
 	},
-	
-	
+
+
 	/**
 	 * Reinitialise Visual Event (i.e. bring it up-to-date with any new events which might have
 	 *   been added
@@ -287,15 +287,15 @@ VisualEvent.prototype = {
 
 		this.s.elements.splice(0, this.s.elements.length);
 		this.s.nonDomEvents = 0;
-			
+
 		this._construct();
 	},
-	
-	
+
+
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Private methods
 	 */
-	
+
 	/**
 	 * Visual Event constructor
 	 *  @private
@@ -306,15 +306,15 @@ VisualEvent.prototype = {
 		var i, iLen;
 		var windowHeight = $(document).height();
 		var windowWidth = $(document).width();
-		
+
 		/* Prep the DOM */
 		this.dom.display.style.width = windowWidth+'px';
 		this.dom.display.style.height = windowHeight+'px';
-		
+
 		document.body.appendChild( this.dom.display );
 		document.body.appendChild( this.dom.lightbox );
 		document.body.appendChild( this.dom.label );
-		
+
 		/* Event handlers */
 		$(this.dom.lightbox).bind('mouseover.VisualEvent', function (e) {
 			that._timerClear( e );
@@ -323,12 +323,12 @@ VisualEvent.prototype = {
 		} ).bind( 'mouseout.VisualEvent', function (e) {
 			that._lightboxHide();
 		} );
-		
+
 		$('div.Event_NodeRemove', this.dom.lightbox).bind('click.VisualEvent', function (e) {
 			that.dom.activeEventNode.style.display = "none";
 			that.dom.lightbox.style.display = "none";
 		} );
-		
+
 		$(document).bind( 'keydown.VisualEvent', function( e ) {
 			if ( e.which === 0 || e.which === 27 ) { // esc
 				that.close();
@@ -349,24 +349,24 @@ VisualEvent.prototype = {
 				that.reInit();
 			}
 		} );
-		
+
 		/* Build the events list and display */
 		this.s.elements = this._eventsLoad();
 		for ( i=0, iLen=this.s.elements.length ; i<iLen ; i++ ) {
 			this._eventElement( this.s.elements[i] );
 		}
-		
+
 		this._renderLabel();
-		
+
 		/* Load the text of all the Javascript on the page so we can try to find source */
 		this._scriptsLoad();
 	},
-	
-	
+
+
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * User help
 	 */
-	
+
 	/**
 	 * Show the help box
 	 *  @private
@@ -374,8 +374,8 @@ VisualEvent.prototype = {
 	"_help": function () {
 		document.body.appendChild( this.dom.help );
 	},
-	
-	
+
+
 	/**
 	 * Hide hte help box
 	 *  @private
@@ -383,13 +383,13 @@ VisualEvent.prototype = {
 	"_hideHelp": function () {
 		document.body.removeChild( this.dom.help );
 	},
-	
-	
-	
+
+
+
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Javascript source handling
 	 */
-	
+
 	/**
 	 * Parse the DOM for script tags and store the Javascript that is found. For any scripts which
 	 * have a 'src' attribute, add them to a queue for Ajax loading and then start the queue running
@@ -417,11 +417,11 @@ VisualEvent.prototype = {
 				} );
 			}
 		}
-		
+
 		this._scriptLoadQueue( loadQueue );
 	},
-	
-	
+
+
 	/**
 	 * Pull an item off the script loading queue and load it up by an Ajax return. When done, loop
 	 * back and load the next item off the queue, until all done.
@@ -433,14 +433,14 @@ VisualEvent.prototype = {
 		if ( loadQueue.length === 0 ) {
 			return;
 		}
-		
+
 		var that = this;
 		var url = loadQueue.shift();
 
 		$.ajax( {
-			"dataType": 'text', 
-			"type": "GET", 
-			"url": url, 
+			"dataType": 'text',
+			"type": "GET",
+			"url": url,
 			"success": function (text) {
 				that.s.scripts.push( {
 					"src": url,
@@ -453,8 +453,8 @@ VisualEvent.prototype = {
 			}
 		} );
 	},
-	
-	
+
+
 	/**
 	 * Attempt to find the source location (file and line number) for a given function and
 	 * format a return string which is human readable explaining where the source might come from
@@ -467,14 +467,14 @@ VisualEvent.prototype = {
 		var origin = "";
 		var srcFiles = [];
 		var i, iLen, script, pos;
-		
+
 		// Webkit reformats the prototype for the function, so the whitespace might not match our
 		// intended target. Remove the prototype - it means we are more likely to get a clash, but
 		// don't see much choice if we want to do matching other than trying all variations
 		if ( $.browser.webkit ) {
 			func = $.trim( func.replace(/^(function.*?\))/, '') );
 		}
-		
+
 		for ( i=0, iLen=this.s.scripts.length ; i<iLen ; i++ ) {
 			script = this.s.scripts[i];
 			pos = script.code.indexOf( func );
@@ -485,11 +485,11 @@ VisualEvent.prototype = {
 				} );
 			}
 		}
-		
+
 		// Firefox reformats the functions from toString() rather than keeping the original format
 		// so we'll never be able to find the original. Should we just return an empty string
 		// for Firefox?
-		
+
 		if ( srcFiles.length === 0 ) {
 			origin = "Function definition could not be found automatically<br/>";
 		} else if ( srcFiles.length === 1 ) {
@@ -502,11 +502,11 @@ VisualEvent.prototype = {
 					' in <a href="'+srcFiles[0].src+'">'+this._scriptName(srcFiles[0].src)+'</a><br/>';
 			}
 		}
-		
+
 		return origin;
 	},
-	
-	
+
+
 	/**
 	 * Get the name of a file from a URL (i.e. the last part in a slash seperated string)
 	 *  @param {string} src URL to get the file name from
@@ -518,13 +518,13 @@ VisualEvent.prototype = {
 		var a = src.split('/');
 		return a[ a.length-1 ];
 	},
-	
-	
-	
+
+
+
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Display
 	 */
-	
+
 	/**
 	 * Build the list of nodes that have events attached to them by going through all installed
 	 * parsers
@@ -535,7 +535,7 @@ VisualEvent.prototype = {
 	{
 		var i, iLen;
 		var elements=[], libraryListeners;
-		
+
 		/* Gather the events from the supported libraries */
 		for ( i=0, iLen=VisualEvent.parsers.length ; i<iLen ; i++ ) {
 			// Given the millions of environments that the parsers will run in, it is quite possible one
@@ -545,22 +545,22 @@ VisualEvent.prototype = {
 				elements = elements.concat( libraryListeners );
 			} catch (e) {}
 		}
-		
+
 		/* Add the API array information - if it is available */
 		if ( typeof VisualEvents == 'object' ) {
 			if ( this._ceckIntegrity( VisualEvents ) ) {
 				elements = this._combineEvents( elements, VisualEvents );
 			}
 		}
-		
+
 		/* Group the events */
 		return this._merge( elements );
 	},
-	
-	
+
+
 	/**
 	 * A node has at least one event subscribed to it - draw it visually
-	 *  @param {object} eventNode Event information for this node in the same format as 
+	 *  @param {object} eventNode Event information for this node in the same format as
 	 *    VisualEvent.s.elements objects
 	 *  @private
 	 */
@@ -570,7 +570,7 @@ VisualEvent.prototype = {
 		var i, iLen;
 		var pos;
 		var label;
-		
+
 		// Element is hidden
 		if ( $(eventNode.node).filter(':visible').length === 0 ) {
 			if ( window.console && window.console.warn ) {
@@ -579,21 +579,21 @@ VisualEvent.prototype = {
 			this.s.nonDomEvents += 1;
 			return;
 		}
-		
+
 		pos = $(eventNode.node).offset();
-		
+
 		label = document.createElement( 'div' );
 		label.style.position = "absolute";
 		label.style.top = pos.top+"px";
 		label.style.left = pos.left+"px";
 		label.className = 'EventLabel Event_bg_'+this._getColorFromTypes( eventNode.listeners );
-		
+
 		/* If dealing with the html or body tags, don't paint over the whole screen */
 		if ( eventNode.node != document.body && eventNode.node != document.documentElement ) {
 			label.style.width = (eventNode.node.offsetWidth-4)+'px';
 			label.style.height = (eventNode.node.offsetHeight-4)+'px';
 		}
-		
+
 		/* Event listeners for showing the lightbox for this element */
 		$(label).bind( 'dblclick.VisualEvent', function (e) {
 			this.style.display = "none";
@@ -604,17 +604,17 @@ VisualEvent.prototype = {
 		} ).bind( 'mouseout.VisualEvent', function (e) {
 			that._lightboxHide();
 		} );
-		
+
 		/* Finally have the html engine render our output */
 		this.dom.display.appendChild( label );
 	},
-	
-	
-	
+
+
+
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Lightbox
 	 */
-	
+
 	/**
 	 * Show the list of event types which are attached to this node and add event listeners to show
 	 * the code when required (mouseover on the list)
@@ -628,26 +628,26 @@ VisualEvent.prototype = {
 		var that = this;
 		var i, iLen;
 		var ul;
-		
+
 		this._timerClear();
-		
+
 		$('i', this.dom.lightbox).html( this._renderNodeInfo(node) );
 		$('div.Event_Code', this.dom.lightbox).empty();
-		
+
 		ul = $('ul', this.dom.lightbox).empty();
 		for ( i=0, iLen=listeners.length ; i<iLen ; i++ ) {
 			ul.append( $('<li>'+listeners[i].type+'</li>').bind( 'mouseover.VisualEvent',
 				this._lightboxCode(e, node, listeners[i]) )
 			);
 		}
-		
+
 		/* Show the code for the first event in the list */
 		$('li:eq(0)', this.dom.lightbox).mouseover();
-		
+
 		this._lightboxPosition( this.dom.lightbox, node );
 	},
-	
-	
+
+
 	/**
 	 * Create a function which will build the HTML needed for the display of the code for an
 	 * event handler
@@ -660,16 +660,16 @@ VisualEvent.prototype = {
 	"_lightboxCode": function ( e, node, listener )
 	{
 		var that = this;
-		
+
 		return function () {
 			$('li', this.parentNode).removeClass( 'Event_EventSelected' );
 			$(this).addClass( 'Event_EventSelected' );
-			
+
 			var evt = that._createEvent( e, listener.type, e.target );
-			that._renderCode( e, listener.func, listener.source, listener.type, 
+			that._renderCode( e, listener.func, listener.source, listener.type,
 				evt===null ? null : function() {
 					node.dispatchEvent(evt);
-					
+
 					// Might cause stuff to move around by the activation of the event, so re-init
 					setTimeout( function () {
 						that.reInit.call(that);
@@ -678,8 +678,8 @@ VisualEvent.prototype = {
 			);
 		};
 	},
-	
-	
+
+
 	/**
 	 * Position the lightbox relative to the element which has an event attached to it
 	 *  @param {element} target The lightbox node to move (note there is only one this.dom.lightbox
@@ -696,33 +696,33 @@ VisualEvent.prototype = {
 		var viewportH = $(document).height();
 		var targetW = $(target).width();
 		var targetH = $(target).height();
-		
+
 		// Correct for over-run
 		if ( targetL + targetW > viewportW ) {
 			targetL -= (targetL + targetW) - viewportW;
 		}
-		
+
 		if ( targetT + targetH > viewportH ) {
 			targetH -= (targetT + targetH) - viewportH;
 		}
-		
+
 		// Correct for under-run
 		if ( targetT < 0 ) {
 			targetT = 0;
 		}
-		
+
 		if ( targetL < 0 ) {
 			targetL = 0;
 		}
-		
+
 		target.style.top = targetT+'px';
 		target.style.left = targetL+'px';
 		target.style.display = 'block';
 	},
-	
-	
+
+
 	/**
-	 * Close the lightbox - use a cancellable timer for the hiding of the lightbox, so we can move 
+	 * Close the lightbox - use a cancellable timer for the hiding of the lightbox, so we can move
 	 * the mouse from element to element without having it flicker.
 	 *  @private
 	 */
@@ -734,13 +734,13 @@ VisualEvent.prototype = {
 			},
 		200 );
 	},
-	
-	
-	
+
+
+
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Rendering methods
 	 */
-	
+
 	/**
 	 * Display a tooltip with event information for a particular event handler
 	 *  @param {event} e Target node information
@@ -754,14 +754,14 @@ VisualEvent.prototype = {
 		var that = this;
 		var eventElement = e.target;
 		var i, iLen;
-		
+
 		this._timerClear( e );
-		
+
 		if ( trigger === null ) {
 			$('div.Event_Code', this.dom.lightbox).html( '<div id="Event_inner"><p><i>'+type+
 				'</i> event subscribed by '+source+'<br/>'+
 				this._scriptSource( func )+
-				'</p><pre id="Event_code" class="brush: js"></pre></div>' );	
+				'</p><pre id="Event_code" class="brush: js"></pre></div>' );
 		}
 		else {
 			$('div.Event_Code', this.dom.lightbox).html( '<div id="Event_inner"><p><i>'+type+
@@ -771,7 +771,7 @@ VisualEvent.prototype = {
 				'</p><pre id="Event_code" class="brush: js"></pre></div>' );
 			$('#Event_Trigger').bind( 'click.VisualEvent', trigger );
 		}
-		
+
 		/* Modify the function slightly such that the white space that is found at the start of the
 		 * last line in the function is also put at the start of the first line. This allows
 		 * SyntaxHighlighter to be cunning and remove the block white space - otherwise it is all
@@ -783,16 +783,16 @@ VisualEvent.prototype = {
 			lines[0] = last + lines[0];
 			func = lines.join('\n');
 		}
-		
+
 		/* Inject the function string here incase it includes a '</textarea>' string */
-		$('pre', this.dom.lightbox).html( 
+		$('pre', this.dom.lightbox).html(
 			func.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 		);
-		
+
 		VisualEventSyntaxHighlighter.highlight( null, document.getElementById('Event_code') );
 	},
-	
-	
+
+
 	/**
 	 * Show information about a particular node - the node name, ID and class (if it has either/both
 	 * of the last two)
@@ -803,21 +803,21 @@ VisualEvent.prototype = {
 	"_renderNodeInfo": function ( node )
 	{
 		var s = node.nodeName.toLowerCase();
-		
+
 		var id = node.getAttribute('id');
 		if ( id && id !== '' ) {
 			s += '#'+id;
 		}
-		
+
 		var className = node.className;
 		if ( className !== '' ) {
 			s += '.'+className;
 		}
-		
+
 		return s;
 	},
-	
-	
+
+
 	/**
 	 * Display the Visual Event toolbar, writing in the required information and adding the event
 	 * handlers as needed
@@ -827,35 +827,35 @@ VisualEvent.prototype = {
 	{
 		var that = this,
 			events = 0, i, iLen;
-		
-		for (i=0, iLen=this.s.elements.length ; i<iLen ; i++ ) {
+
+		for ( i=0, iLen=this.s.elements.length ; i<iLen ; i++ ) {
 			events += this.s.elements[i].listeners.length;
 		}
-		
+
 		$('span.Event_LabelEvents', this.dom.label).html( events );
 		$('span.Event_LabelNodes', this.dom.label).html( this.s.elements.length );
 		$('span.Event_LabelNonDom', this.dom.label).html( this.s.nonDomEvents );
-		
+
 		//this.dom.label.innerHTML = "Visual Event";
 		$('span.Event_LabelClose', this.dom.label).bind( 'click.VisualEvent', function () {
 			that.close();
 		} );
-		
+
 		$('span.Event_LabelHelp', this.dom.label).bind( 'click.VisualEvent', function () {
 			that._help();
 		} );
-		
+
 		$(this.dom.help).bind( 'click.VisualEvent', function () {
 			that._hideHelp();
 		} );
 	},
-	
-	
-	
+
+
+
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Support methods
 	 */
-	
+
 	/**
 	 * Create an event oject based on the type to trigger an event - cross-platform
 	 *  @param {event} originalEvt The original event (click) which cased this function to run
@@ -869,26 +869,26 @@ VisualEvent.prototype = {
 		var evt = null;
 		var offset = $(target).offset();
 		var typeGroup = this._eventTypeGroup( type );
-		
+
 		if ( document.createEvent ) {
 			switch ( typeGroup ) {
 				case 'mouse':
 					evt = document.createEvent( "MouseEvents" );
-					evt.initMouseEvent( type, true, true, window, 0, offset.left, offset.top, 
-						offset.left, offset.top, originalEvt.ctrlKey, originalEvt.altKey, originalEvt.shiftKey, 
+					evt.initMouseEvent( type, true, true, window, 0, offset.left, offset.top,
+						offset.left, offset.top, originalEvt.ctrlKey, originalEvt.altKey, originalEvt.shiftKey,
 						originalEvt.metaKey, originalEvt.button, null );
 					break;
-				
+
 				case 'html':
 					evt = document.createEvent( "HTMLEvents" );
 					evt.initEvent( type, true, true );
 					break;
-					
+
 				case 'ui':
 					evt = document.createEvent( "UIEvents" );
 					evt.initUIEvent( type, true, true, window, 0 );
 					break;
-				
+
 				default:
 					break;
 			}
@@ -907,23 +907,23 @@ VisualEvent.prototype = {
 					evt.button = originalEvt.button;
 					evt.relatedTarget = null;
 					break;
-				
+
 				case 'html':
 					/* fall through to basic event object */
-					
+
 				case 'ui':
 					evt = document.createEventObject();
 					break;
-				
+
 				default:
 					break;
 			}
 		}
-		
+
 		return evt;
 	},
-	
-	
+
+
 	/**
 	 * Cancel tooltip mouse timer
 	 *  @param {event} e Mouse event
@@ -936,8 +936,8 @@ VisualEvent.prototype = {
 			this.s.mouseTimer = null;
 		}
 	},
-	
-	
+
+
 	/**
 	 * Combine the main events array, so that each node only has one element
 	 *  @param {array} main The main source array
@@ -948,10 +948,10 @@ VisualEvent.prototype = {
 	{
 		var ret = [];
 		var found, i, iLen, j, jLen;
-		
+
 		for ( i=0, iLen=main.length ; i<iLen ; i++ ) {
 			found = false;
-			
+
 			for ( j=0, jLen=ret.length ; j<jLen ; j++ ) {
 				if ( ret[j].node == main[i].node ) {
 					ret[j].listeners = ret[j].listeners.concat( main[i].listeners );
@@ -959,19 +959,19 @@ VisualEvent.prototype = {
 					break;
 				}
 			}
-			
+
 			if ( !found ) {
 				ret.push( main[i] );
 			}
 		}
-		
+
 		return ret;
 	},
-	
-	
+
+
 	/**
 	 * Combine the API array into the internal representation.
-	 * The input structure MUST be valid for this to work - two types of objects are allowed as 
+	 * The input structure MUST be valid for this to work - two types of objects are allowed as
 	 *   array entries:
 	 *     { node: '', source: '', func: '', type: '', removed: bool }
 	 *     { node: '', source: '', listeners: [ func: '', type: '', removed: bool, ... ] }
@@ -984,14 +984,14 @@ VisualEvent.prototype = {
 	{
 		var i, j,
 			found, found2;
-		
+
 		for ( i=0 ; i<api.length ; i++ ) {
 			if ( typeof api[i].listeners != 'undefined' ) {
 				main.push( api[i] );
 			}
 			else {
 				found = -1;
-				
+
 				/* Want to combine single definitions into our single entry for each node array */
 				for ( j=0 ; j<main.length ; j++ ) {
 					if ( main[j].node == api[i].node ) {
@@ -999,7 +999,7 @@ VisualEvent.prototype = {
 						break;
 					}
 				}
-				
+
 				if ( found == -1 ) {
 					main.push( {
 						"node": api[i].node,
@@ -1024,7 +1024,7 @@ VisualEvent.prototype = {
 							break;
 						}
 					}
-					
+
 					/* If not found - then add it in */
 					if ( found2 != -1 ) {
 						main[ found ].listeners.push( {
@@ -1036,11 +1036,11 @@ VisualEvent.prototype = {
 				}
 			}
 		}
-		
+
 		return main;
 	},
-	
-	
+
+
 	/**
 	 * Group the event types as per w3c groupings
 	 *  @param {string} type Event type
@@ -1059,27 +1059,27 @@ VisualEvent.prototype = {
 			case 'mouseup':
 			case 'scroll':
 				return 'mouse';
-			
+
 			case 'change':
 			case 'focus':
 			case 'blur':
 			case 'select':
 			case 'submit':
 				return 'html';
-				
+
 			case 'keydown':
 			case 'keypress':
 			case 'keyup':
 			case 'load':
 			case 'unload':
 				return 'ui';
-			
+
 			default:
 				return 'custom';
 		}
 	},
-	
-	
+
+
 	/**
 	 * Compute the background colour of the event indicator from the event types
 	 *  @param {array} events Events information
@@ -1092,34 +1092,34 @@ VisualEvent.prototype = {
 		var hasHtml = false;
 		var hasUi = false;
 		var group, i;
-		
+
 		for ( i=0 ; i<events.length ; i++ ) {
 			group = this._eventTypeGroup( events[i].type );
-			
+
 			switch ( group ) {
 				case 'mouse':
 					hasMouse = true;
 					break;
-				
+
 				case 'html':
 					hasHtml = true;
 					break;
-					
+
 				case 'ui':
 					/* We call 'custom' and 'unknown' types UI as well */
 					hasUi = true;
 					break;
-				
+
 				default:
 					hasUi = true;
 					break;
 			}
 		}
-		
+
 		/*
 		 * Since we have three event groups which can be in any combination - then we can group the
 		 * resultant colours via the colour wheel
-		 *        
+		 *
 		 *                        Red (UI)
 		 *                         +++++
 		 *                       ++     ++
