@@ -466,7 +466,7 @@ VisualEvent.prototype = {
 	{
 		var origin = "";
 		var srcFiles = [];
-		var i, iLen, a;
+		var i, iLen, script, pos;
 		
 		// Webkit reformats the prototype for the function, so the whitespace might not match our
 		// intended target. Remove the prototype - it means we are more likely to get a clash, but
@@ -476,11 +476,12 @@ VisualEvent.prototype = {
 		}
 		
 		for ( i=0, iLen=this.s.scripts.length ; i<iLen ; i++ ) {
-			if ( this.s.scripts[i].code.indexOf( func ) !== -1 ) {
-				a = this.s.scripts[i].code.split( func );
+			script = this.s.scripts[i];
+			pos = script.code.indexOf( func );
+			if ( pos !== -1 ) {
 				srcFiles.push( {
-					"src": this.s.scripts[i].src,
-					"line": a[0].split('\n').length
+					"src": script.src,
+					"line": script.code.substr(0, pos).split('\n').length
 				} );
 			}
 		}
