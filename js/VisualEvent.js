@@ -558,6 +558,29 @@ VisualEvent.prototype = {
 	},
 
 
+	"_nodeInfo": function ( node )
+	{
+		var info;
+		if (node == window) {
+			info = {left: 0, top: 0, width: 60, height: 16, text: "window"};
+		} else if (node == document) {
+			info = {left: 0, top: 20, width: 60, height: 16, text: "#document"};
+		} else {
+			info = $(node).offset();
+			/* If dealing with the html or body tags, don't paint over the whole screen */
+			if (node != document.body && node != document.documentElement) {
+				info.width = node.offsetWidth - 4;
+				info.height = node.offsetHeight - 4;
+			} else {
+				info.width = 20;
+				info.height = 20;
+			}
+			info.text = "";
+		}
+		return info;
+	},
+
+
 	/**
 	 * A node has at least one event subscribed to it - draw it visually
 	 *  @param {object} eventNode Event information for this node in the same format as
@@ -572,26 +595,24 @@ VisualEvent.prototype = {
 		var label;
 
 		// Element is hidden
-		if ( $(eventNode.node).filter(':visible').length === 0 ) {
+		if ( !$(eventNode.node).is(':visible') ) {
 			if ( window.console && window.console.warn ) {
-				console.warn("Event on invisible element", eventNode.node, eventNode);
+				window.console.warn("Event on invisible element", eventNode.node, eventNode);
 			}
 			this.s.nonDomEvents += 1;
 			return;
 		}
 
-		pos = $(eventNode.node).offset();
+		pos = this._nodeInfo(eventNode.node);
 
 		label = document.createElement( 'div' );
 		label.style.top = pos.top+"px";
 		label.style.left = pos.left+"px";
+		label.style.width = pos.width+"px";
+		label.style.height = pos.height+"px";
 		label.className = 'EventLabel Event_bg_'+this._getColorFromTypes( eventNode.listeners );
 
-		/* If dealing with the html or body tags, don't paint over the whole screen */
-		if ( eventNode.node != document.body && eventNode.node != document.documentElement ) {
-			label.style.width = (eventNode.node.offsetWidth-4)+'px';
-			label.style.height = (eventNode.node.offsetHeight-4)+'px';
-		}
+		label.innerHTML = pos.text;
 
 		/* Event listeners for showing the lightbox for this element */
 		$(label).bind( 'dblclick.VisualEvent', function (e) {
@@ -688,7 +709,7 @@ VisualEvent.prototype = {
 	 */
 	"_lightboxPosition": function ( target, parent )
 	{
-		var offset = $(parent).offset();
+		var offset = this._nodeInfo(parent);
 		var targetT = offset.top + 15; // magic number - height of info button
 		var targetL = offset.left;
 		var viewportW = $(window).width() - 25; // use window rather than document, since the target could cause the document to resize
@@ -801,6 +822,13 @@ VisualEvent.prototype = {
 	 */
 	"_renderNodeInfo": function ( node )
 	{
+		if (node == window) {
+			return "window";
+		}
+		if (node == document) {
+			return "#document";
+		}
+
 		var s = node.nodeName.toLowerCase();
 
 		var id = node.getAttribute('id');
