@@ -596,6 +596,9 @@ VisualEvent.prototype = {
 
 		// Element is hidden
 		if ( !$(eventNode.node).is(':visible') ) {
+			if ($(eventNode.node).is('#Event_Lightbox, #Event_Lightbox *')) {
+				return;
+			}
 			if ( window.console && window.console.warn ) {
 				window.console.warn("Event on invisible element", eventNode.node, eventNode);
 			}
