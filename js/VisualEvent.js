@@ -18,7 +18,7 @@
 
 /**
  * Visual Event will show, visually, which DOM elements on a web-page have events attached to
- * them, information about those events and the code accossiated with each handler for the
+ * them, information about those events and the code associated with each handler for the
  * event. It does this by parsing through the cache of Javascript libraries (as there is no DOM
  * method to get the information required), thus a major part of Visual Event are the library
  * parsers. A result of this is that universal display of events is not possible - there must
