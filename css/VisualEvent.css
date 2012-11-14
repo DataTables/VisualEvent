@@ -302,3 +302,8 @@ div.Event_LabelColour {
 #Event_Display div.Event_bg_black:hover {
 	border: rgba(190, 190, 190, 1) 2px solid;
 }
+
+#Event_Display div.EventLabel {
+	position: absolute;
+	font: 14px sans-serif;
+}
