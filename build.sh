@@ -5,8 +5,7 @@ if [ "$1" = "-h" ]; then
 	echo "  Visual Event build script - usage:
     ./build.sh [loader-dir] [debug]
       loader-dir - The web-address of the build files. Note that the build
-        directory name is automatically appended and \"http(s):\\\\\" is
-        automatically prepended. For example:
+        directory name is automatically appended. For example:
           localhost/VisualEvent/builds - default if no option is provided
           sprymedia.co.uk/VisualEvent/builds
       debug - Debug indicator. Will not compress the Javascript
