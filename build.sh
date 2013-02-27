@@ -54,37 +54,37 @@ CSS=$(pwd)/css
 echo "Building VisualEvent"
 echo "  Creating media directory ${BUILD}"
 
-mkdir -p $BUILD
+mkdir -p "$BUILD"
 
 
 # JAVASCRIPT
 echo "  Javascript"
-mkdir $BUILD_JS
+mkdir "$BUILD_JS"
 
 echo "    Combining Javascript files"
-cp  $JS/VisualEvent_Loader.js                                         $BUILD_BASE/VisualEvent_Loader.js
-cat $JS/jquery.js $JS/shCore.js $JS/VisualEvent.js $JS/parsers/*.js > $BUILD_JS/VisualEvent-jQuery.js
-cat               $JS/shCore.js $JS/VisualEvent.js $JS/parsers/*.js > $BUILD_JS/VisualEvent.js
+cp  "$JS/VisualEvent_Loader.js"                                               "$BUILD_BASE/VisualEvent_Loader.js"
+cat "$JS/jquery.js" "$JS/shCore.js" "$JS/VisualEvent.js" "$JS"/parsers/*.js > "$BUILD_JS/VisualEvent-jQuery.js"
+cat                 "$JS/shCore.js" "$JS/VisualEvent.js" "$JS"/parsers/*.js > "$BUILD_JS/VisualEvent.js"
 
-if [ "$DEBUG" != "debug" -o ! -e $UGLIFYJS ]; then
+if [ "$DEBUG" != "debug" -a -e $UGLIFYJS ]; then
 	echo "    Compressing Javascript"
 	$UGLIFYJS $BUILD_BASE/VisualEvent_Loader.js > $BUILD_BASE/VisualEvent_Loader.min.js
 	$UGLIFYJS $BUILD_JS/VisualEvent-jQuery.js   > $BUILD_JS/VisualEvent-jQuery.min.js
 	$UGLIFYJS $BUILD_JS/VisualEvent.js          > $BUILD_JS/VisualEvent.min.js
 	
-	mv $BUILD_BASE/VisualEvent_Loader.min.js $BUILD_BASE/VisualEvent_Loader.js
-	mv $BUILD_JS/VisualEvent-jQuery.min.js   $BUILD_JS/VisualEvent-jQuery.js
-	mv $BUILD_JS/VisualEvent.min.js          $BUILD_JS/VisualEvent.js
+	mv "$BUILD_BASE/VisualEvent_Loader.min.js" "$BUILD_BASE/VisualEvent_Loader.js"
+	mv "$BUILD_JS/VisualEvent-jQuery.min.js"   "$BUILD_JS/VisualEvent-jQuery.js"
+	mv "$BUILD_JS/VisualEvent.min.js"          "$BUILD_JS/VisualEvent.js"
 fi
 
-sed "s#__BUILD_URL__#//${SCRIPT_LOC}/${BUILD_DIR}#g" $BUILD_BASE/VisualEvent_Loader.js > $BUILD_BASE/VisualEvent_Loader.tmp.js
-mv $BUILD_BASE/VisualEvent_Loader.tmp.js $BUILD_BASE/VisualEvent_Loader.js
+sed "s#__BUILD_URL__#http://${SCRIPT_LOC}/${BUILD_DIR}#g" "$BUILD_BASE/VisualEvent_Loader.js" > "$BUILD_BASE/VisualEvent_Loader.tmp.js"
+mv "$BUILD_BASE/VisualEvent_Loader.tmp.js" "$BUILD_BASE/VisualEvent_Loader.js"
 
 
 # CSS
 echo "  Combining CSS files"
-mkdir $BUILD_CSS
-cat $CSS/VisualEvent.css $CSS/shCore.css > $BUILD_CSS/VisualEvent.css
+mkdir "$BUILD_CSS"
+cat "$CSS/VisualEvent.css" "$CSS/shCore.css" > "$BUILD_CSS/VisualEvent.css"
 
 
 # Docs
