@@ -471,9 +471,7 @@ VisualEvent.prototype = {
 		// Webkit reformats the prototype for the function, so the whitespace might not match our
 		// intended target. Remove the prototype - it means we are more likely to get a clash, but
 		// don't see much choice if we want to do matching other than trying all variations
-		if ( $.browser.webkit ) {
-			func = $.trim( func.replace(/^(function.*?\))/, '') );
-		}
+		func = $.trim( func.replace(/^(function.*?\))/, '') );
 		
 		for ( i=0, iLen=this.s.scripts.length ; i<iLen ; i++ ) {
 			if ( this.s.scripts[i].code.indexOf( func ) !== -1 ) {
