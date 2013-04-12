@@ -76,7 +76,7 @@ if [ "$DEBUG" != "debug" -a -e $UGLIFYJS ]; then
 	mv "$BUILD_JS/VisualEvent.min.js"          "$BUILD_JS/VisualEvent.js"
 fi
 
-sed "s#__BUILD_URL__#http://${SCRIPT_LOC}/${BUILD_DIR}#g" "$BUILD_BASE/VisualEvent_Loader.js" > "$BUILD_BASE/VisualEvent_Loader.tmp.js"
+sed "s#__BUILD_URL__#//${SCRIPT_LOC}/${BUILD_DIR}#g" "$BUILD_BASE/VisualEvent_Loader.js" > "$BUILD_BASE/VisualEvent_Loader.tmp.js"
 mv "$BUILD_BASE/VisualEvent_Loader.tmp.js" "$BUILD_BASE/VisualEvent_Loader.js"
 
 

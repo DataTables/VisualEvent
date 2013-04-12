@@ -6,7 +6,7 @@
  * @license     GPL v2
  * @contact     www.sprymedia.co.uk/contact
  *
- * @copyright Copyright 2007-2011 Allan Jardine.
+ * @copyright Copyright 2007-2013 Allan Jardine.
  *
  * This source file is free software, under the GPL v2 license:
  *   http://www.gnu.org/licenses/gpl-2.0.html
