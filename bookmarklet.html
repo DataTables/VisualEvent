@@ -65,7 +65,9 @@
 			</p>
         	
 			<textarea id="js">(function() {
-	var url = '//www.sprymedia.co.uk/VisualEvent/VisualEvent_Loader.js';
+	var protocol = window.location.protocol === 'file:' ?
+		'http:' : '';
+	var url = protocol+'//www.sprymedia.co.uk/VisualEvent/VisualEvent_Loader.js';
 	//var url = protocol+'//localhost/VisualEvent/builds/VisualEvent_Loader.js';
 	
 	if( typeof VisualEvent!='undefined' ) {

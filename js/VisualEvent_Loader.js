@@ -78,7 +78,9 @@ VisualEvent_Loader.prototype = {
 	{
 		var that = this,
 			loading,
-			style;
+			style,
+		 	protocol = window.location.protocol === 'file:' ?
+				'http:' : '';
 		
 		/* Check to see if already loaded */
 		if ( this.s.loadingComplete === true ) {
@@ -121,12 +123,12 @@ VisualEvent_Loader.prototype = {
 		/* Load the required files - note that the token __BUILD_URL__ is replaced by the build
 		 * script with the location of the combined Visual Event file (i.e. with the parsers included
 		 */
-		this._loadFile( '__BUILD_URL__/css/VisualEvent.css', 'css' );
+		this._loadFile( protocol+'__BUILD_URL__/css/VisualEvent.css', 'css' );
 		if ( typeof jQuery == 'undefined' ) {
-			this._loadFile( '__BUILD_URL__/js/VisualEvent-jQuery.js', 'js' );
+			this._loadFile( protocol+'__BUILD_URL__/js/VisualEvent-jQuery.js', 'js' );
 		}
 		else {
-			this._loadFile( '__BUILD_URL__/js/VisualEvent.js', 'js' );
+			this._loadFile( protocol+'__BUILD_URL__/js/VisualEvent.js', 'js' );
 		}
 	},
 	
