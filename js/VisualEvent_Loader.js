@@ -14,6 +14,7 @@
 
 (function(window, document){
 
+/*global VisualEvent,VisualEvent_Loader*/
 
 if ( typeof VisualEvent_Loader == 'undefined' ) {
 
@@ -26,7 +27,7 @@ if ( typeof VisualEvent_Loader == 'undefined' ) {
  *  @constructor
  * 
  *  @example
- * 		new VisualEvent_Loader();
+ *     new VisualEvent_Loader();
 */
 window.VisualEvent_Loader = function ()
 {
@@ -35,7 +36,7 @@ window.VisualEvent_Loader = function ()
 		alert( "VisualEvent loader warning: Must be initialised with the 'new' keyword." );
 		return;
 	}
-	
+
 	/**
 	 * Settings object containing the settings information for the instance
 	 *  @namespace
@@ -49,7 +50,7 @@ window.VisualEvent_Loader = function ()
 		 */
 		"loadingComplete": false
 	};
-	
+
 	/**
 	 * DOM elements used by the instance
 	 *  @namespace
@@ -62,7 +63,7 @@ window.VisualEvent_Loader = function ()
 		 */
 		"loading": document.createElement('div')
 	};
-	
+
 	this._construct();
 };
 
@@ -79,19 +80,19 @@ VisualEvent_Loader.prototype = {
 		var that = this,
 			loading,
 			style,
-		 	protocol = window.location.protocol === 'file:' ?
+			protocol = window.location.protocol === 'file:' ?
 				'http:' : '';
-		
+
 		/* Check to see if already loaded */
 		if ( this.s.loadingComplete === true ) {
 			return 0;
 		}
-		
+
 		/* Show a label to the user to let them know that Visual Event is currently loading */
 		loading = this.dom.loading;
 		loading.setAttribute( 'id', 'EventLoading' );
 		loading.appendChild( document.createTextNode( 'Loading Visual Event...' ) );
-		
+
 		style = loading.style;
 		style.position = 'fixed';
 		style.bottom = '0';
@@ -103,12 +104,12 @@ VisualEvent_Loader.prototype = {
 		style.zIndex = '55999';
 		style.backgroundColor = '#93a8cf';
 		document.body.insertBefore( loading, document.body.childNodes[0] );
-		
+
 		/* Store a static flag to let the VisualEvent instance know if jQuery was already available on
 		 * the page or not - used in the "close" method
 		 */
 		VisualEvent_Loader.jQueryPreLoaded = (typeof jQuery == 'undefined') ? false : true;
-		
+
 		/* Start the polling for ready */
 		if ( typeof VisualEvent == 'object' ) {
 			this._pollReady();
@@ -119,7 +120,7 @@ VisualEvent_Loader.prototype = {
 				that._pollReady();
 			}, 1000 );
 		}
-		
+
 		/* Load the required files - note that the token __BUILD_URL__ is replaced by the build
 		 * script with the location of the combined Visual Event file (i.e. with the parsers included
 		 */
@@ -131,8 +132,8 @@ VisualEvent_Loader.prototype = {
 			this._loadFile( protocol+'__BUILD_URL__/js/VisualEvent.js', 'js' );
 		}
 	},
-	
-	
+
+
 	/**
 	 * Load a new file into the DOM, and have it processed based on its type. This can be a
 	 * Javascript file, a CSS file or an image
@@ -144,7 +145,7 @@ VisualEvent_Loader.prototype = {
 	"_loadFile": function ( file, type )
 	{
 		var n, img;
-		
+
 		if ( type == 'css' ) {
 			n = document.createElement('link');
 			n.type = 'text/css';
@@ -165,8 +166,8 @@ VisualEvent_Loader.prototype = {
 			document.body.appendChild( n );
 		}
 	},
-	
-	
+
+
 	/**
 	 * Check if VisualEvent components (specifically VisualEvent itself and the SyntaxHighlighter)
 	 * have been loaded and are available. If not, wait a little while and try again.
@@ -177,9 +178,9 @@ VisualEvent_Loader.prototype = {
 	{
 		var that = this,
 			tmp;
-		
+
 		if ( typeof VisualEvent == 'function' &&
-		 		 typeof VisualEventSyntaxHighlighter == 'object' )
+			 typeof VisualEventSyntaxHighlighter == 'object' )
 		{
 			this._complete();
 		}
@@ -187,10 +188,10 @@ VisualEvent_Loader.prototype = {
 			setTimeout( function() {
 				that._pollReady();
 			}, 100 );
-		}	
+		}
 	},
-	
-	
+
+
 	/**
 	 * Loading is complete, initialise VisualEvent
 	 *  @returns {undefined}
@@ -199,11 +200,11 @@ VisualEvent_Loader.prototype = {
 	"_complete": function ()
 	{
 		var that = this;
-		
+
 		this.s.loadingComplete = true;
-		
+
 		tmp = new VisualEvent(); // jsLint need to assign it to a var
-		
+
 		/* Tidy up our display */
 		document.body.removeChild( this.dom.loading );
 	}

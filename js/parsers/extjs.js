@@ -1,8 +1,12 @@
 
 (function(window, document, $, VisualEvent){
 
+/*global Ext*/
+
 VisualEvent.parsers.push( function () {
-	if ( typeof Ext == "undefined" || Ext.versions.core.version.indexOf('4.0') !== 0 ) return [];
+	if ( typeof Ext == "undefined" || Ext.versions.core.version.indexOf('4.0') !== 0 ) {
+		return [];
+	}
 
 	var elements = [];
 
@@ -38,7 +42,7 @@ VisualEvent.parsers.push( function () {
 			}
 		}
 	}
-	
+
 	return elements;
 } );
 

@@ -2,6 +2,8 @@
 
 (function(window, document, $, VE) {
 
+/*global jQuery*/
+
 // jQuery 1.5, 1.6
 VE.parsers.push( function () {
 	if ( ! jQuery ||
@@ -131,8 +133,6 @@ function jQueryGeneric (elements, eventsObject, node) {
 			}
 		}
 	}
-
-	console.log( elements );
 }
 
 })(window, document, jQuery, VisualEvent);
