@@ -14,16 +14,16 @@
  * @license
  * Dual licensed under the MIT and GPL licenses.
  */
-.Event_syntaxhighlighter a,
-.Event_syntaxhighlighter div,
-.Event_syntaxhighlighter code,
-.Event_syntaxhighlighter table,
-.Event_syntaxhighlighter table td,
-.Event_syntaxhighlighter table tr,
-.Event_syntaxhighlighter table tbody,
-.Event_syntaxhighlighter table thead,
-.Event_syntaxhighlighter table caption,
-.Event_syntaxhighlighter textarea {
+.Event_syntaxHighlighter a,
+.Event_syntaxHighlighter div,
+.Event_syntaxHighlighter code,
+.Event_syntaxHighlighter table,
+.Event_syntaxHighlighter table td,
+.Event_syntaxHighlighter table tr,
+.Event_syntaxHighlighter table tbody,
+.Event_syntaxHighlighter table thead,
+.Event_syntaxHighlighter table caption,
+.Event_syntaxHighlighter textarea {
   -moz-border-radius: 0 0 0 0 !important;
   -webkit-border-radius: 0 0 0 0 !important;
   background: none !important;
@@ -44,7 +44,7 @@
   vertical-align: baseline !important;
   width: auto !important;
   box-sizing: content-box !important;
-  font-family: "Consolas","Monaco","Bitstream Vera Sans Mono","Courier New",Courier,monospace !important;
+  font-family: "Source Code Pro","Consolas","Monaco","Bitstream Vera Sans Mono","Courier New",Courier,monospace !important;
   font-weight: normal !important;
   font-style: normal !important;
   font-size: 1em !important;
@@ -52,39 +52,39 @@
   min-height: auto !important;
 }
 
-.Event_syntaxhighlighter {
+.Event_syntaxHighlighter {
   width: 100% !important;
   margin: 1em 0 1em 0 !important;
   position: relative !important;
   overflow: auto !important;
   font-size: 1em !important;
 }
-.Event_syntaxhighlighter.source {
+.Event_syntaxHighlighter.source {
   overflow: hidden !important;
 }
-.Event_syntaxhighlighter .bold {
+.Event_syntaxHighlighter .bold {
   font-weight: bold !important;
 }
-.Event_syntaxhighlighter .italic {
+.Event_syntaxHighlighter .italic {
   font-style: italic !important;
 }
-.Event_syntaxhighlighter .line {
+.Event_syntaxHighlighter .line {
   white-space: pre !important;
 }
-.Event_syntaxhighlighter table {
+.Event_syntaxHighlighter table {
   width: 100% !important;
 }
-.Event_syntaxhighlighter table caption {
+.Event_syntaxHighlighter table caption {
   text-align: left !important;
   padding: .5em 0 0.5em 1em !important;
 }
-.Event_syntaxhighlighter table td.code {
+.Event_syntaxHighlighter table td.code {
   width: 100% !important;
 }
-.Event_syntaxhighlighter table td.code .container {
+.Event_syntaxHighlighter table td.code .container {
   position: relative !important;
 }
-.Event_syntaxhighlighter table td.code .container textarea {
+.Event_syntaxHighlighter table td.code .container textarea {
   box-sizing: border-box !important;
   position: absolute !important;
   left: 0 !important;
@@ -97,129 +97,129 @@
   overflow: hidden !important;
   white-space: pre !important;
 }
-.Event_syntaxhighlighter table td.gutter .line {
+.Event_syntaxHighlighter table td.gutter .line {
   text-align: right !important;
   padding: 2px 0.5em 2px 1em !important;
 }
-.Event_syntaxhighlighter table td.code .line {
+.Event_syntaxHighlighter table td.code .line {
   padding: 2px 1em !important;
 }
-.Event_syntaxhighlighter.nogutter td.code .container textarea, .Event_syntaxhighlighter.nogutter td.code .line {
+.Event_syntaxHighlighter.nogutter td.code .container textarea, .Event_syntaxHighlighter.nogutter td.code .line {
   padding-left: 0em !important;
 }
-.Event_syntaxhighlighter.show {
+.Event_syntaxHighlighter.show {
   display: block !important;
 }
-.Event_syntaxhighlighter.collapsed table {
+.Event_syntaxHighlighter.collapsed table {
   display: none !important;
 }
-.Event_syntaxhighlighter.collapsed .toolbar {
+.Event_syntaxHighlighter.collapsed .toolbar {
   padding: 0.1em 0.8em 0em 0.8em !important;
   font-size: 1em !important;
   position: static !important;
   width: auto !important;
   height: auto !important;
 }
-.Event_syntaxhighlighter.collapsed .toolbar span {
+.Event_syntaxHighlighter.collapsed .toolbar span {
   display: inline !important;
   margin-right: 1em !important;
 }
-.Event_syntaxhighlighter.collapsed .toolbar span a {
+.Event_syntaxHighlighter.collapsed .toolbar span a {
   padding: 0 !important;
   display: none !important;
 }
-.Event_syntaxhighlighter.collapsed .toolbar span a.expandSource {
+.Event_syntaxHighlighter.collapsed .toolbar span a.expandSource {
   display: inline !important;
 }
-.Event_syntaxhighlighter .toolbar {
+.Event_syntaxHighlighter .toolbar {
   position: absolute !important;
   right: 1px !important;
   top: 1px !important;
   font-size: 10px !important;
   z-index: 10 !important;
 }
-.Event_syntaxhighlighter .toolbar span.title {
+.Event_syntaxHighlighter .toolbar span.title {
   display: inline !important;
 }
-.Event_syntaxhighlighter .toolbar a {
+.Event_syntaxHighlighter .toolbar a {
   display: block !important;
   text-align: center !important;
   text-decoration: none !important;
   padding-top: 1px !important;
 }
-.Event_syntaxhighlighter .toolbar a.expandSource {
+.Event_syntaxHighlighter .toolbar a.expandSource {
   display: none !important;
 }
-.Event_syntaxhighlighter.ie {
+.Event_syntaxHighlighter.ie {
   font-size: .9em !important;
   padding: 1px 0 1px 0 !important;
 }
-.Event_syntaxhighlighter.ie .toolbar {
+.Event_syntaxHighlighter.ie .toolbar {
   line-height: 8px !important;
 }
-.Event_syntaxhighlighter.ie .toolbar a {
+.Event_syntaxHighlighter.ie .toolbar a {
   padding-top: 0px !important;
 }
-.Event_syntaxhighlighter.printing .line.alt1 .content,
-.Event_syntaxhighlighter.printing .line.alt2 .content,
-.Event_syntaxhighlighter.printing .line.highlighted .number,
-.Event_syntaxhighlighter.printing .line.highlighted.alt1 .content,
-.Event_syntaxhighlighter.printing .line.highlighted.alt2 .content {
+.Event_syntaxHighlighter.printing .line.alt1 .content,
+.Event_syntaxHighlighter.printing .line.alt2 .content,
+.Event_syntaxHighlighter.printing .line.highlighted .number,
+.Event_syntaxHighlighter.printing .line.highlighted.alt1 .content,
+.Event_syntaxHighlighter.printing .line.highlighted.alt2 .content {
   background: none !important;
 }
-.Event_syntaxhighlighter.printing .line .number {
+.Event_syntaxHighlighter.printing .line .number {
   color: #bbbbbb !important;
 }
-.Event_syntaxhighlighter.printing .line .content {
+.Event_syntaxHighlighter.printing .line .content {
   color: black !important;
 }
-.Event_syntaxhighlighter.printing .toolbar {
+.Event_syntaxHighlighter.printing .toolbar {
   display: none !important;
 }
-.Event_syntaxhighlighter.printing a {
+.Event_syntaxHighlighter.printing a {
   text-decoration: none !important;
 }
-.Event_syntaxhighlighter.printing .plain, .Event_syntaxhighlighter.printing .plain a {
+.Event_syntaxHighlighter.printing .plain, .Event_syntaxHighlighter.printing .plain a {
   color: black !important;
 }
-.Event_syntaxhighlighter.printing .comments, .Event_syntaxhighlighter.printing .comments a {
+.Event_syntaxHighlighter.printing .comments, .Event_syntaxHighlighter.printing .comments a {
   color: #008200 !important;
 }
-.Event_syntaxhighlighter.printing .string, .Event_syntaxhighlighter.printing .string a {
+.Event_syntaxHighlighter.printing .string, .Event_syntaxHighlighter.printing .string a {
   color: blue !important;
 }
-.Event_syntaxhighlighter.printing .keyword {
+.Event_syntaxHighlighter.printing .keyword {
   color: #006699 !important;
   font-weight: bold !important;
 }
-.Event_syntaxhighlighter.printing .preprocessor {
+.Event_syntaxHighlighter.printing .preprocessor {
   color: gray !important;
 }
-.Event_syntaxhighlighter.printing .variable {
+.Event_syntaxHighlighter.printing .variable {
   color: #aa7700 !important;
 }
-.Event_syntaxhighlighter.printing .value {
+.Event_syntaxHighlighter.printing .value {
   color: #009900 !important;
 }
-.Event_syntaxhighlighter.printing .functions {
+.Event_syntaxHighlighter.printing .functions {
   color: #ff1493 !important;
 }
-.Event_syntaxhighlighter.printing .constants {
+.Event_syntaxHighlighter.printing .constants {
   color: #0066cc !important;
 }
-.Event_syntaxhighlighter.printing .script {
+.Event_syntaxHighlighter.printing .script {
   font-weight: bold !important;
 }
-.Event_syntaxhighlighter.printing .color1, .Event_syntaxhighlighter.printing .color1 a {
+.Event_syntaxHighlighter.printing .color1, .Event_syntaxHighlighter.printing .color1 a {
   color: gray !important;
 }
-.Event_syntaxhighlighter.printing .color2, .Event_syntaxhighlighter.printing .color2 a {
+.Event_syntaxHighlighter.printing .color2, .Event_syntaxHighlighter.printing .color2 a {
   color: #ff1493 !important;
 }
-.Event_syntaxhighlighter.printing .color3, .Event_syntaxhighlighter.printing .color3 a {
+.Event_syntaxHighlighter.printing .color3, .Event_syntaxHighlighter.printing .color3 a {
   color: red !important;
 }
-.Event_syntaxhighlighter.printing .break, .Event_syntaxhighlighter.printing .break a {
+.Event_syntaxHighlighter.printing .break, .Event_syntaxHighlighter.printing .break a {
   color: black !important;
 }
 
@@ -241,67 +241,66 @@
  * @license
  * Dual licensed under the MIT and GPL licenses.
  */
-.Event_syntaxhighlighter {
-  background-color: transparent !important;
+.Event_syntaxHighlighter {
+  background-color: white !important;
   font-size: 13px !important;
-  overflow: auto !important;
+  overflow: visible !important;
 }
-.Event_syntaxhighlighter .line.alt1 {
+.Event_syntaxHighlighter .line.alt1 {
   background-color: white !important;
 }
-.Event_syntaxhighlighter .line.alt2 {
+.Event_syntaxHighlighter .line.alt2 {
   background-color: #F8F8F8 !important;
 }
-.Event_syntaxhighlighter .line.highlighted.alt1, .Event_syntaxhighlighter .line.highlighted.alt2 {
+.Event_syntaxHighlighter .line.highlighted.alt1, .Event_syntaxHighlighter .line.highlighted.alt2 {
   background-color: #e0e0e0 !important;
 }
-.Event_syntaxhighlighter .line.highlighted.number {
+.Event_syntaxHighlighter .line.highlighted.number {
   color: black !important;
 }
-.Event_syntaxhighlighter table caption {
+.Event_syntaxHighlighter table caption {
   color: black !important;
 }
-.Event_syntaxhighlighter .gutter {
+.Event_syntaxHighlighter .gutter {
 }
-.Event_syntaxhighlighter .gutter div {
+.Event_syntaxHighlighter .gutter div {
   color: #5C5C5C !important;
-  width: 20px !important;
 }
-.Event_syntaxhighlighter .gutter .line.alt1, .Event_syntaxhighlighter  .gutter .line.alt2 {
-  background-color: transparent !important;
+.Event_syntaxHighlighter .gutter .line.alt1, .Event_syntaxHighlighter  .gutter .line.alt2 {
+  background-color: white !important;
 }
-.odd .Event_syntaxhighlighter .gutter .line.alt1, .odd .Event_syntaxhighlighter  .gutter .line.alt2 {
+.odd .Event_syntaxHighlighter .gutter .line.alt1, .odd .Event_syntaxHighlighter  .gutter .line.alt2 {
   background-color: #F2F2F2 !important;
 }
-.Event_syntaxhighlighter .gutter .line {
+.Event_syntaxHighlighter .gutter .line {
   border-right: 3px solid #4E6CA3 !important;
 }
-.Event_syntaxhighlighter .gutter .line.highlighted {
+.Event_syntaxHighlighter .gutter .line.highlighted {
   background-color: #4E6CA3 !important;
   color: white !important;
 }
-.Event_syntaxhighlighter.printing .line .content {
+.Event_syntaxHighlighter.printing .line .content {
   border: none !important;
 }
-.Event_syntaxhighlighter.collapsed {
+.Event_syntaxHighlighter.collapsed {
   overflow: visible !important;
 }
-.Event_syntaxhighlighter.collapsed .toolbar {
+.Event_syntaxHighlighter.collapsed .toolbar {
   color: blue !important;
   background: white !important;
   border: 1px solid #4E6CA3 !important;
 }
-.Event_syntaxhighlighter.collapsed .toolbar a {
+.Event_syntaxHighlighter.collapsed .toolbar a {
   color: blue !important;
 }
-.Event_syntaxhighlighter.collapsed .toolbar a:hover {
+.Event_syntaxHighlighter.collapsed .toolbar a:hover {
   color: red !important;
 }
-.Event_syntaxhighlighter .toolbar {
+.Event_syntaxHighlighter .toolbar {
   color: white !important;
   border: none !important;
 }
-.Event_syntaxhighlighter .toolbar a {
+.Event_syntaxHighlighter .toolbar a {
   font: 100%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;
   color: white !important;
   background: #4E6CA3 !important;
@@ -309,69 +308,82 @@
   padding: 2px 5px !important;
   clear: both;
 }
-.Event_syntaxhighlighter .toolbar a:hover {
+.Event_syntaxHighlighter .toolbar a:hover {
   color: #b7c5df !important;
   background: #39568b !important;
 }
-.Event_syntaxhighlighter .plain, .Event_syntaxhighlighter .plain a {
+.Event_syntaxHighlighter .plain, .Event_syntaxHighlighter .plain a {
   color: black !important;
 }
-.Event_syntaxhighlighter .comments, .Event_syntaxhighlighter .comments a {
+.Event_syntaxHighlighter .comments, .Event_syntaxHighlighter .comments a {
   color: #008200 !important;
 }
-.Event_syntaxhighlighter .string, .Event_syntaxhighlighter .string a {
+.Event_syntaxHighlighter .string, .Event_syntaxHighlighter .string a {
   color: blue !important;
 }
-.Event_syntaxhighlighter .keyword {
+.Event_syntaxHighlighter .keyword {
   color: #006699 !important;
 }
-.Event_syntaxhighlighter .preprocessor {
+.Event_syntaxHighlighter .preprocessor {
   color: gray !important;
 }
-.Event_syntaxhighlighter .variable {
+.Event_syntaxHighlighter .variable {
   color: #aa7700 !important;
 }
-.Event_syntaxhighlighter .value {
+.Event_syntaxHighlighter .value {
   color: #009900 !important;
 }
-.Event_syntaxhighlighter .functions {
+.Event_syntaxHighlighter .functions {
   color: #ff1493 !important;
 }
-.Event_syntaxhighlighter .constants {
+.Event_syntaxHighlighter .constants {
   color: #0066cc !important;
 }
-.Event_syntaxhighlighter .script {
+.Event_syntaxHighlighter .script {
   font-weight: bold !important;
   color: #006699 !important;
   background-color: none !important;
 }
-.Event_syntaxhighlighter .color1, .Event_syntaxhighlighter .color1 a {
+.Event_syntaxHighlighter .color1, .Event_syntaxHighlighter .color1 a {
   color: gray !important;
 }
-.Event_syntaxhighlighter .color2, .Event_syntaxhighlighter .color2 a {
+.Event_syntaxHighlighter .color2, .Event_syntaxHighlighter .color2 a {
   color: #ff1493 !important;
 }
-.Event_syntaxhighlighter .color3, .Event_syntaxhighlighter .color3 a {
+.Event_syntaxHighlighter .color3, .Event_syntaxHighlighter .color3 a {
   color: red !important;
 }
 
-.Event_syntaxhighlighter .keyword {
+.Event_syntaxHighlighter .keyword {
   font-weight: bold !important;
 }
 
 .datatables_ref:hover {
-	text-decoration: underline;
-	cursor: pointer;
-	*cursor: hand;
+  text-decoration: underline;
+  cursor: pointer;
+  *cursor: hand;
 }
 
-.Event_syntaxhighlighter .dtapi {
-	color: #069;
+.Event_syntaxHighlighter .dtapi {
+  color: #069;
 }
 
-.Event_syntaxhighlighter .dtapi:hover {
-	text-decoration: underline;
-	cursor: pointer;
-	*cursor: hand;
+.Event_syntaxHighlighter .dtapi:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  *cursor: hand;
+}
+
+.Event_syntaxHighlighter table {
+  table-layout: fixed !important;
+}
+
+.Event_syntaxHighlighter table td.gutter {
+  width: 46px !important; /* enough for three digits */
+}
+
+.Event_syntaxHighlighter table td.code {
+  width: auto !important;
+  overflow: auto !important;
 }
 
