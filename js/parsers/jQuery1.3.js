@@ -3,7 +3,7 @@
 
 // jQuery 1.3
 VisualEvent.parsers.push( function () {
-	if ( !jQuery || jQuery.fn.jquery.substr(0,3)*1 > 1.3 ) {
+	if ( !jQuery || VisualEvent.versionCompare( jQuery.fn.jquery, '>', '1.3' ) ) {
 		return [];
 	}
 	

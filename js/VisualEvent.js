@@ -1190,4 +1190,53 @@ VisualEvent.close = function ()
 };
 
 
+/**
+ * Compare two version strings
+ *  @static
+ *  @param {string} v1 Version 1 string
+ *  @param {string} operator '<', '<=', '==', '>=' or '>' - logic operation to
+ *    perform
+ *  @param {string} v2 Version 2 string
+ *  @returns {boolean} true if condition is correct, false otherwise
+ */
+VisualEvent.versionCompare = function ( v1, operator, v2 ) {
+	var a1 = v1.split('.');
+	var a2 = v2.split('.');
+	var i1, i2;
+	var test = 0;
+
+	for ( var i=0, iLen=a2.length ; i<iLen ; i++ ) {
+		i1 = parseInt( a1[i], 10 ) || 0;
+		i2 = parseInt( a2[i], 10 ) || 0;
+
+		// Parts are the same, keep comparing
+		if ( i1 < i2 ) {
+			test = -1;
+			break;
+		}
+		else if ( i1 > i2 ) {
+			test = 1;
+			break;
+		}
+	}
+
+	if ( operator === '<' ) {
+		return test === -1;
+	}
+	else if ( operator === '<=' ) {
+		return test === -1 || test === 0;
+	}
+	else if ( operator === '==' ) {
+		return test === 0;
+	}
+	else if ( operator === '>=' ) {
+		return test === 0 || test === 1;
+	}
+	else if ( operator === '>' ) {
+		return test === 1;
+	}
+	throw 'Unknown operator: '+operator;
+}
+
+
 })(window, document, jQuery);

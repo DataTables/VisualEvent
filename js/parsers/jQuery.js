@@ -1,43 +1,47 @@
-(function(window, document, $, VisualEvent) {
+
+
+(function(window, document, $, VE) {
 
 // jQuery 1.5, 1.6
-VisualEvent.parsers.push( function () {
-	var version = jQuery.fn.jquery.substr(0,3)*1;
-	
-	if ( !jQuery || version < 1.5 || version >= 1.7 ) {
+VE.parsers.push( function () {
+	if ( ! jQuery ||
+		VE.versionCompare( jQuery.fn.jquery, '<', '1.5' ) ||
+		VE.versionCompare( jQuery.fn.jquery, '>=', '1.7' ) )
+	{
 		return [];
 	}
-	
+
 	var elements = [];
-	for ( j in jQuery.cache ) {
+	for ( var j in jQuery.cache ) {
 		jQueryGenericLoop( elements, jQuery.cache[j] );
 	}
-	
+
 	return elements;
 });
+
 
 // jQuery 1.4, 1.7
-VisualEvent.parsers.push( function () {
-	var version = jQuery.fn.jquery.substr(0,3)*1;
-	
-	if ( !jQuery || version < 1.4 || version > 1.7 ) {
+VE.parsers.push( function () {
+	if ( ! jQuery ||
+		VE.versionCompare( jQuery.fn.jquery, '<', '1.4' ) ||
+		VE.versionCompare( jQuery.fn.jquery, '>', '1.7' ) )
+	{
 		return [];
 	}
-	
+
 	var elements = [];
 	jQueryGenericLoop( elements, jQuery.cache );
-	
+
 	return elements;
 });
 
+
 // jQuery 1.8+
-VisualEvent.parsers.push( function () {
-	var version = jQuery.fn.jquery.substr(0,3)*1;
-	
-	if ( !jQuery || version < 1.8 ) {
+VE.parsers.push( function () {
+	if ( ! jQuery || VE.versionCompare( jQuery.fn.jquery, '<', '1.8' ) ) {
 		return [];
 	}
-	
+
 	var elements = [];
 
 	// Get all 'live' (on) events
@@ -47,22 +51,23 @@ VisualEvent.parsers.push( function () {
 
 	// Get events on nodes
 	$('*').each(function(index1, element) {
-		jQueryGeneric(elements, element, element)
+		jQueryGeneric(elements, element, element);
 	});
-		
+
 	return elements;
 });
 
+
 function jQueryGenericLoop (elements, cache) {
-	for ( i in cache ) {
+	for ( var i in cache ) {
 		jQueryGeneric(elements, cache[i], cache[i].handle.elem);
 	}
 }
 
 function jQueryGeneric (elements, eventsObject, node) {
 	if ( typeof eventsObject == 'object' ) {
-		var events = undefined;
-		
+		var events;
+
 		if (typeof eventsObject.events == 'object') {
 			events = eventsObject.events;
 		}
@@ -70,19 +75,19 @@ function jQueryGeneric (elements, eventsObject, node) {
 		events = $._data(eventsObject, 'events');
 
 		var func;
-		
-		for ( type in events ) {
+
+		for ( var type in events ) {
 			/* Ignore live event object - live events are listed as normal events as well */
 			if ( type == 'live' ) {
 				continue;
 			}
-			
+
 			var oEvents = events[type];
-			
-			for ( j in oEvents ) {
+
+			for ( var j in oEvents ) {
 				var aNodes = [];
 				var sjQuery = "jQuery " + jQuery.fn.jquery;
-				
+
 				if ( typeof oEvents[j].selector != 'undefined' && oEvents[j].selector !== null ) {
 					aNodes = $(oEvents[j].selector, node);
 					sjQuery += " (live event)";
@@ -90,13 +95,13 @@ function jQueryGeneric (elements, eventsObject, node) {
 				else {
 					aNodes.push( node );
 				}
-				
+
 				for ( var k=0, kLen=aNodes.length ; k<kLen ; k++ ) {
 					elements.push( {
 						"node": aNodes[k],
 						"listeners": []
 					} );
-					
+
 					if ( typeof oEvents[j].origHandler != 'undefined' ) {
 						func = oEvents[j].origHandler.toString();
 					}
@@ -106,7 +111,7 @@ function jQueryGeneric (elements, eventsObject, node) {
 					else {
 						func = oEvents[j].toString();
 					}
-					
+
 					/* We use jQuery for the Visual Event events... don't really want to display them */
 					if ( oEvents[j] && oEvents[j].namespace != "VisualEvent" && func != "0" )
 					{
@@ -126,6 +131,9 @@ function jQueryGeneric (elements, eventsObject, node) {
 			}
 		}
 	}
-};
+
+	console.log( elements );
+}
 
 })(window, document, jQuery, VisualEvent);
+
