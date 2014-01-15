@@ -1,5 +1,4 @@
-
-(function(window, document, $, VisualEvent){
+(function(window, document, $, VisualEvent) {
 
 // jQuery 1.5, 1.6
 VisualEvent.parsers.push( function () {
@@ -11,86 +10,118 @@ VisualEvent.parsers.push( function () {
 	
 	var elements = [];
 	for ( j in jQuery.cache ) {
-		jQueryGeneric( elements, jQuery.cache[j] );
+		jQueryGenericLoop( elements, jQuery.cache[j] );
 	}
 	
 	return elements;
-} );
+});
 
 // jQuery 1.4, 1.7
 VisualEvent.parsers.push( function () {
 	var version = jQuery.fn.jquery.substr(0,3)*1;
 	
-	if ( !jQuery || version < 1.4 ) {
+	if ( !jQuery || version < 1.4 || version > 1.7 ) {
 		return [];
 	}
 	
 	var elements = [];
-	jQueryGeneric( elements, jQuery.cache );
+	jQueryGenericLoop( elements, jQuery.cache );
 	
 	return elements;
-} );
+});
 
+// jQuery 1.8+
+VisualEvent.parsers.push( function () {
+	var version = jQuery.fn.jquery.substr(0,3)*1;
+	
+	if ( !jQuery || version < 1.8 ) {
+		return [];
+	}
+	
+	var elements = [];
 
-function jQueryGeneric (elements, cache)
-{
+	// Get all 'live' (on) events
+	$(document).each(function(index1, element) {
+		jQueryGeneric(elements, element, element);
+	});
+
+	// Get events on nodes
+	$('*').each(function(index1, element) {
+		jQueryGeneric(elements, element, element)
+	});
+		
+	return elements;
+});
+
+function jQueryGenericLoop (elements, cache) {
 	for ( i in cache ) {
-		if ( typeof cache[i].events == 'object' ) {
-			var eventAttachedNode = cache[i].handle.elem;
-			var func;
+		jQueryGeneric(elements, cache[i], cache[i].handle.elem);
+	}
+}
+
+function jQueryGeneric (elements, eventsObject, node) {
+	if ( typeof eventsObject == 'object' ) {
+		var events = undefined;
+		
+		if (typeof eventsObject.events == 'object') {
+			events = eventsObject.events;
+		}
+
+		events = $._data(eventsObject, 'events');
+
+		var func;
+		
+		for ( type in events ) {
+			/* Ignore live event object - live events are listed as normal events as well */
+			if ( type == 'live' ) {
+				continue;
+			}
 			
-			for ( type in cache[i].events ) {
-				/* Ignore live event object - live events are listed as normal events as well */
-				if ( type == 'live' ) {
-					continue;
+			var oEvents = events[type];
+			
+			for ( j in oEvents ) {
+				var aNodes = [];
+				var sjQuery = "jQuery " + jQuery.fn.jquery;
+				
+				if ( typeof oEvents[j].selector != 'undefined' && oEvents[j].selector !== null ) {
+					aNodes = $(oEvents[j].selector, node);
+					sjQuery += " (live event)";
+				}
+				else {
+					aNodes.push( node );
 				}
 				
-				var oEvents = cache[i].events[type];
-				
-				for ( j in oEvents ) {
-					var aNodes = [];
-					var sjQuery = "jQuery "+jQuery.fn.jquery;
+				for ( var k=0, kLen=aNodes.length ; k<kLen ; k++ ) {
+					elements.push( {
+						"node": aNodes[k],
+						"listeners": []
+					} );
 					
-					if ( typeof oEvents[j].selector != 'undefined' && oEvents[j].selector !== null ) {
-						aNodes = $(oEvents[j].selector, cache[i].handle.elem);
-						sjQuery += " (live event)";
+					if ( typeof oEvents[j].origHandler != 'undefined' ) {
+						func = oEvents[j].origHandler.toString();
+					}
+					else if ( typeof oEvents[j].handler != 'undefined' ) {
+						func = oEvents[j].handler.toString();
 					}
 					else {
-						aNodes.push( eventAttachedNode );
+						func = oEvents[j].toString();
 					}
 					
-					for ( var k=0, kLen=aNodes.length ; k<kLen ; k++ ) {
-						elements.push( {
-							"node": aNodes[k],
-							"listeners": []
+					/* We use jQuery for the Visual Event events... don't really want to display them */
+					if ( oEvents[j] && oEvents[j].namespace != "VisualEvent" && func != "0" )
+					{
+						elements[ elements.length-1 ].listeners.push( {
+							"type": type,
+							"func": func,
+							"removed": false,
+							"source": sjQuery
 						} );
-						
-						if ( typeof oEvents[j].origHandler != 'undefined' ) {
-							func = oEvents[j].origHandler.toString();
-						}
-						else if ( typeof oEvents[j].handler != 'undefined' ) {
-							func = oEvents[j].handler.toString();
-						}
-						else {
-							func = oEvents[j].toString();
-						}
-						
-						/* We use jQuery for the Visual Event events... don't really want to display them */
-						if ( oEvents[j] && oEvents[j].namespace != "VisualEvent" && func != "0" )
-						{
-							elements[ elements.length-1 ].listeners.push( {
-								"type": type,
-								"func": func,
-								"removed": false,
-								"source": sjQuery
-							} );
-						}
 					}
+				}
 
-					// Remove elements that didn't have any listeners (i.e. might be a Visual Event node)
-					if ( elements[ elements.length-1 ].listeners.length === 0 ) {
-						elements.splice( elements.length-1, 1 );
-					}
+				// Remove elements that didn't have any listeners (i.e. might be a Visual Event node)
+				if ( elements[ elements.length-1 ].listeners.length === 0 ) {
+					elements.splice( elements.length-1, 1 );
 				}
 			}
 		}
