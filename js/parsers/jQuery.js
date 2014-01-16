@@ -24,17 +24,20 @@ VE.parsers.push( function () {
 
 // jQuery 1.4, 1.7
 VE.parsers.push( function () {
-	if ( ! jQuery ||
-		VE.versionCompare( jQuery.fn.jquery, '<', '1.4' ) ||
-		VE.versionCompare( jQuery.fn.jquery, '>', '1.7' ) )
-	{
+	if ( ! jQuery ) {
 		return [];
 	}
 
-	var elements = [];
-	jQueryGenericLoop( elements, jQuery.cache );
+	if (
+		( VE.versionCompare( jQuery.fn.jquery, '>=', '1.4' ) && VE.versionCompare( jQuery.fn.jquery, '<', '1.5' ) ) ||
+		( VE.versionCompare( jQuery.fn.jquery, '>=', '1.7' ) && VE.versionCompare( jQuery.fn.jquery, '<', '1.8' ) ) )
+	{
+		var elements = [];
+		jQueryGenericLoop( elements, jQuery.cache );
+		return elements;
+	}
 
-	return elements;
+	return [];
 });
 
 
@@ -61,9 +64,11 @@ VE.parsers.push( function () {
 
 
 function jQueryGenericLoop (elements, cache) {
-	for ( var i in cache ) {
-		jQueryGeneric(elements, cache[i], cache[i].handle.elem);
-	}
+	$.each( cache, function ( key, val ) {
+		if ( val.handle ) {
+			jQueryGeneric(elements, val, val.handle.elem);
+		}
+	} );
 }
 
 function jQueryGeneric (elements, eventsObject, node) {
@@ -81,56 +86,60 @@ function jQueryGeneric (elements, eventsObject, node) {
 		var func;
 
 		for ( var type in events ) {
-			/* Ignore live event object - live events are listed as normal events as well */
-			if ( type == 'live' ) {
-				continue;
-			}
-
-			var oEvents = events[type];
-
-			for ( var j in oEvents ) {
-				var aNodes = [];
-				var sjQuery = "jQuery " + jQuery.fn.jquery;
-
-				if ( typeof oEvents[j].selector != 'undefined' && oEvents[j].selector !== null ) {
-					aNodes = $(oEvents[j].selector, node);
-					sjQuery += " (live event)";
-				}
-				else {
-					aNodes.push( node );
+			if ( events.hasOwnProperty( type ) ) {
+				/* Ignore live event object - live events are listed as normal events as well */
+				if ( type == 'live' ) {
+					continue;
 				}
 
-				for ( var k=0, kLen=aNodes.length ; k<kLen ; k++ ) {
-					elements.push( {
-						"node": aNodes[k],
-						"listeners": []
-					} );
+				var oEvents = events[type];
 
-					if ( typeof oEvents[j].origHandler != 'undefined' ) {
-						func = oEvents[j].origHandler.toString();
-					}
-					else if ( typeof oEvents[j].handler != 'undefined' ) {
-						func = oEvents[j].handler.toString();
-					}
-					else {
-						func = oEvents[j].toString();
+				for ( var j in oEvents ) {
+					if ( oEvents.hasOwnProperty( j ) ) {
+						var aNodes = [];
+						var sjQuery = "jQuery " + jQuery.fn.jquery;
+
+						if ( typeof oEvents[j].selector != 'undefined' && oEvents[j].selector !== null ) {
+							aNodes = $(oEvents[j].selector, node);
+							sjQuery += " (live event)";
+						}
+						else {
+							aNodes.push( node );
+						}
+
+						for ( var k=0, kLen=aNodes.length ; k<kLen ; k++ ) {
+							elements.push( {
+								"node": aNodes[k],
+								"listeners": []
+							} );
+
+							if ( typeof oEvents[j].origHandler != 'undefined' ) {
+								func = oEvents[j].origHandler.toString();
+							}
+							else if ( typeof oEvents[j].handler != 'undefined' ) {
+								func = oEvents[j].handler.toString();
+							}
+							else {
+								func = oEvents[j].toString();
+							}
+
+							/* We use jQuery for the Visual Event events... don't really want to display them */
+							if ( oEvents[j] && oEvents[j].namespace != "VisualEvent" && func != "0" )
+							{
+								elements[ elements.length-1 ].listeners.push( {
+									"type": type,
+									"func": func,
+									"removed": false,
+									"source": sjQuery
+								} );
+							}
+						}
 					}
 
-					/* We use jQuery for the Visual Event events... don't really want to display them */
-					if ( oEvents[j] && oEvents[j].namespace != "VisualEvent" && func != "0" )
-					{
-						elements[ elements.length-1 ].listeners.push( {
-							"type": type,
-							"func": func,
-							"removed": false,
-							"source": sjQuery
-						} );
+					// Remove elements that didn't have any listeners (i.e. might be a Visual Event node)
+					if ( elements[ elements.length-1 ].listeners.length === 0 ) {
+						elements.splice( elements.length-1, 1 );
 					}
-				}
-
-				// Remove elements that didn't have any listeners (i.e. might be a Visual Event node)
-				if ( elements[ elements.length-1 ].listeners.length === 0 ) {
-					elements.splice( elements.length-1, 1 );
 				}
 			}
 		}

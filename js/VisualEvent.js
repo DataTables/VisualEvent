@@ -545,9 +545,14 @@ VisualEvent.prototype = {
 			// will hit an error - if it does, just ignore it and pass on.
 			try {
 				libraryListeners = VisualEvent.parsers[i]();
-				elements = elements.concat( libraryListeners );
-			} catch (e) {}
+				console.log( 'libraryListeners', libraryListeners.length );
+				elements.push.apply( elements, libraryListeners );
+			} catch (e) {
+				console.log( 'Visual Event parser error:', e );
+			}
 		}
+
+		console.log( elements );
 
 		/* Add the API array information - if it is available */
 		if ( typeof VisualEvents == 'object' ) {
