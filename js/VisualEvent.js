@@ -225,7 +225,7 @@ window.VisualEvent = function ()
 					'</table>'+
 					'<p>Visual Event is open source software (GPLv2). If you would like to contribute an '+
 						'enhancement, please fork the project on '+
-						'<a href="https://github.com/SpryMedia/VisualEvent" target="_blank">Github</a>!</p>'+
+						'<a href="https://github.com/DataTables/VisualEvent" target="_blank">Github</a>!</p>'+
 					'<p class="Event_HelpClose">Click anywhere to close this help box.</p>'+
 				'</div>'+
 			'</div>')[0],
