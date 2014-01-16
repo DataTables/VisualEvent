@@ -74,7 +74,9 @@ function jQueryGeneric (elements, eventsObject, node) {
 			events = eventsObject.events;
 		}
 
-		events = $._data(eventsObject, 'events');
+		if ( ! events ) {
+			events = $._data(eventsObject, 'events');
+		}
 
 		var func;
 
