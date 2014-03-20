@@ -137,7 +137,7 @@ function jQueryGeneric (elements, eventsObject, node) {
 					}
 
 					// Remove elements that didn't have any listeners (i.e. might be a Visual Event node)
-					if ( elements[ elements.length-1 ].listeners.length === 0 ) {
+					if ( elements.length && elements[ elements.length-1 ].listeners.length === 0 ) {
 						elements.splice( elements.length-1, 1 );
 					}
 				}
