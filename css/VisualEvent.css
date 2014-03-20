@@ -146,6 +146,11 @@ div.Event_LabelColour {
 	-webkit-box-shadow: 3px 3px 5px #111;
 	box-shadow: 3px 3px 5px #111;
 	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	box-sizing: content-box;
+}
+
+#Event_Lightbox * {
+	box-sizing: content-box !important;
 }
 
 #Event_Lightbox ul {
