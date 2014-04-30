@@ -492,12 +492,13 @@ VisualEvent.prototype = {
 		if ( srcFiles.length === 0 ) {
 			origin = "Function definition could not be found automatically<br/>";
 		} else if ( srcFiles.length === 1 ) {
-			origin = "Function defined on line " + srcFiles[0].line + ' in ';
+			origin = "Function defined in ';
 			if (srcFiles[0].src != 'Inline script') {
-				origin += '<a href="' + srcFiles[0].src + '">'+this._scriptName(srcFiles[0].src)+'</a><br/>';
+				origin += '<a href="' + srcFiles[0].src + '">'+this._scriptName(srcFiles[0].src)+'</a>';
 			} else {
-				origin += srcFiles[0].src + '<br/>';
+				origin += srcFiles[0].src;
 			}
+			origin += ":" + srcFiles[0].line + "<br/>"
 		} else {
 			origin = "Function could originate in multiple locations:<br/>";
 			for ( i=0, iLen=srcFiles.length ; i<iLen ; i++ ) {
