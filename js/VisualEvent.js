@@ -494,11 +494,10 @@ VisualEvent.prototype = {
 		} else if ( srcFiles.length === 1 ) {
 			origin = 'Function defined in ';
 			if (srcFiles[0].src != 'Inline script') {
-				origin += '<a href="' + srcFiles[0].src + '">'+this._scriptName(srcFiles[0].src)+'</a>';
+				origin += '<a href="' + srcFiles[0].src + '">'+this._scriptName(srcFiles[0].src)+'</a>:'+ srcFiles[0].line + "<br/>";
 			} else {
-				origin += srcFiles[0].src;
+				origin += srcFiles[0].src+"<br />";
 			}
-			origin += ":" + srcFiles[0].line + "<br/>"
 		} else {
 			origin = "Function could originate in multiple locations:<br/>";
 			for ( i=0, iLen=srcFiles.length ; i<iLen ; i++ ) {
