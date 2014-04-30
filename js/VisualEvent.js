@@ -492,7 +492,7 @@ VisualEvent.prototype = {
 		if ( srcFiles.length === 0 ) {
 			origin = "Function definition could not be found automatically<br/>";
 		} else if ( srcFiles.length === 1 ) {
-			origin = "Function defined in ';
+			origin = 'Function defined in ';
 			if (srcFiles[0].src != 'Inline script') {
 				origin += '<a href="' + srcFiles[0].src + '">'+this._scriptName(srcFiles[0].src)+'</a>';
 			} else {
