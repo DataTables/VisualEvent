@@ -501,8 +501,8 @@ VisualEvent.prototype = {
 		} else {
 			origin = "Function could originate in multiple locations:<br/>";
 			for ( i=0, iLen=srcFiles.length ; i<iLen ; i++ ) {
-				origin += (i+1)+'. line '+srcFiles[i].line+
-					' in <a href="'+srcFiles[i].src+'" target="_blank">'+this._scriptName(srcFiles[i].src)+'</a><br/>';
+				origin += (i+1)+'. '+
+					' in <a href="'+srcFiles[i].src+'" target="_blank">'+this._scriptName(srcFiles[i].src)+'</a>:'+srcFiles[i].line+'<br/>';
 			}
 		}
 
