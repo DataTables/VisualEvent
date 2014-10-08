@@ -860,7 +860,7 @@ VisualEvent.prototype = {
 
 	/**
 	 * Create an event oject based on the type to trigger an event - cross-platform
-	 *  @param {event} originalEvt The original event (click) which cased this function to run
+	 *  @param {event} originalEvt The original event (click) which caused this function to run
 	 *  @param {string} type Type of event
 	 *  @param {node} target Target node of the event
 	 *  @returns {event} The constructed event
