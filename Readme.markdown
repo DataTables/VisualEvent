@@ -1,5 +1,11 @@
 # Visual Event - visually inspect Javascript events
 
+Build command for me!
+
+```
+./build.sh davidrenne.com/downloads/VisualEvent/builds
+```
+
 Visual Event is a Javascript bookmarklet which provides debugging information about events that have been attached to DOM elements. Visual Event shows:
 
 * Which elements have events attached to them
