@@ -83,7 +83,7 @@ function jQueryGeneric (elements, eventsObject, node) {
 			events = $._data(eventsObject, 'events');
 		}
 
-		var func;
+		var func, funcObject;
 
 		for ( var type in events ) {
 			if ( events.hasOwnProperty( type ) ) {
@@ -114,13 +114,16 @@ function jQueryGeneric (elements, eventsObject, node) {
 							} );
 
 							if ( typeof oEvents[j].origHandler != 'undefined' ) {
-								func = oEvents[j].origHandler.toString();
+								funcObject = oEvents[j].origHandler;
+								func = funcObject.toString();
 							}
 							else if ( typeof oEvents[j].handler != 'undefined' ) {
-								func = oEvents[j].handler.toString();
+								funcObject = oEvents[j].handler;
+								func = funcObject.toString();
 							}
 							else {
-								func = oEvents[j].toString();
+								funcObject = oEvents[j];
+								func = funcObject.toString();
 							}
 
 							/* We use jQuery for the Visual Event events... don't really want to display them */
@@ -129,6 +132,7 @@ function jQueryGeneric (elements, eventsObject, node) {
 								elements[ elements.length-1 ].listeners.push( {
 									"type": type,
 									"func": func,
+									"funcObject": funcObject,
 									"removed": false,
 									"source": sjQuery
 								} );
