@@ -86,7 +86,7 @@ function jQueryGeneric (elements, eventsObject, node) {
 		var func;
 
 		for ( var type in events ) {
-			if ( events.hasOwnProperty( type ) ) {
+			if ( Object.hasOwnProperty.bind( events )( type ) ) {
 				/* Ignore live event object - live events are listed as normal events as well */
 				if ( type == 'live' ) {
 					continue;
